@@ -21,11 +21,19 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		// $this->load->view('welcome_message');
+		
+		// if ($dh = opendir('./uploads')){
+		// 	while (($file = readdir($dh)) !== false) {
+		// 		echo "filename:" . $file . "<br>";
+		// 	}
+		// 	closedir($dh);
+		// }
+
 		$this->load->view('studio');
 	}
 
-	public function temp()
+	public function admin()
 	{
-		$this->load->view('studio2');
+		$this->load->view('admin');
 	}
 }

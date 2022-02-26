@@ -1,6 +1,5 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -60,125 +59,190 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     /* custom */
     body {
+        font-family: HelveticaNeue-Medium;
         color: #808080;
-        overflow-y: hidden;
-    }
-
-    #header {
-        display: flex;
-        padding: 1% 1%;
-        /* border-bottom: 1px solid black; */
-    }
-
-    .header_inline_block {
-        /* display: inline-block; */
-    }
-
-    .main-link {
-        width: 30%;
-        text-align: left;
-    }
-
-    .image-link {
-        width: 15%;
-        text-align: center;
-    }
-
-    .arhive-link {
-        width: 15%;
-        text-align: center;
-    }
-
-    .email-link {
-        width: 30%;
-        text-align: center;
-    }
-
-    .social-link {
-        width: 10%;
-        text-align: right;
-    }
-
-    #main {
-        /* display: flex; */
-        /* position: fixed; */
-        /* height: 100%; */
-        height: 96vh;
-    }
-    
-    #titles {
-        width: 20%;
-        margin: 10px;
-        line-height: 1.5rem;
-        float: left;
     }
 
     #titles > div {
         cursor: pointer;
     }
-    
-    .content-count {
-        float: right;
+
+    /* PC */
+    @media screen and (min-width: 768px) {
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+        }
+        #main {
+            height: 96vh;
+        }
+        
+        #header {
+            display: flex;
+            padding: 1% 1%;
+        }
+
+        #titles {
+            width: 20%;
+            margin: 10px;
+            line-height: 1.5rem;
+            float: left;
+        }
+        #contents {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            height: 96vh;
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
+        
+        .mobile-squre {
+            display: none;
+        }
+
+        .main-link {
+            width: 30%;
+            text-align: left;
+        }
+
+        .image-link {
+            width: 15%;
+            text-align: center;
+        }
+
+        .arhive-link {
+            width: 15%;
+            text-align: center;
+        }
+
+        .email-link {
+            width: 30%;
+            text-align: center;
+        }
+
+        .social-link {
+            width: 10%;
+            text-align: right;
+        }
+        
+        .content-count {
+            float: right;
+        }
+
+        .content {
+            position: absolute;
+            height: 80%;
+        }
+
+        .content img {
+            height: 100%;
+        }
+
+        .content-1 {
+            left: 0%;
+        }
+
+        .content-2 {
+            left: 100%;
+        }
+
+        .content-3 {
+            left: 200%;
+        }
+
+        .content-4 {
+            left: 300%;
+        }
     }
 
-    #contents {
-        /* display: flex; */
-        display: none;
-        flex-direction: column;
-        justify-content: center;
-        /* align-items: center; */
-        position: relative;
-        /* height: 640px; */
-        height: 96vh;
-        overflow-x: scroll;
-        overflow-y: hidden;
-    }
+    /* MOBILE */
+    @media screen and (max-width: 767px) {
+        html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+        }
+        #main {
+            display: none;
+        }
 
-    .content {
-        /* width: 100%; */
-        /* height: 100%; */
-        /* display: inline-block; */
-        /* border: 1px solid red; */
-        position: absolute;
-        /* left: 0; */
-        /* top: 0; */
-        height: 80%;
-    }
+        #header {
+            display: flex;
+            padding: 4% 4%;
+            flex-direction: column;
+            font-size: 1.2rem;
+        }
 
-    .content img {
-        height: 100%;
-        /* box-sizing: border-box; */
-        /* max-width: 100%; */
-        /* border: none; */
-        /* width: auto; */
-        /* height: auto; */
-        /* vertical-align: middle; */
-    }
+        #header > div {
+            width: 100%;
+            text-align: left;
+        }
 
-    .content-1 {
-        left: 0%;
-    }
+        #titles {
+            width: 110%;
+            margin: 10px;
+            line-height: 1.5rem;
+            float: left;
+        }
 
-    .content-2 {
-        left: 100%;
-    }
+        #contents {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            height: 96vh;
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
 
-    .content-3 {
-        left: 200%;
-    }
+        .content {
+            height: 500px !important;
+        }
 
-    .content-4 {
-        left: 300%;
+        .content > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mobile-squre {
+            display: block;
+            float: right;
+        }
+
+        .archive-link, .email-link, .social-link {
+            position: absolute;
+        }
+
+        .archive-link {
+            bottom: 1rem;
+        }
+
+        .email-link {
+            bottom: 2.5rem;
+        }
+
+        .social-link {
+            bottom: 4rem;
+        }
+        .slick-slide {
+            margin: 0 24px;
+        }
     }
 	</style>
 
-    <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/> -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 </head>
 <body>
     <div id="header">
-        <div class="main-link"><a href="">josunghyun</a></div>
-        <div class="image-link"><a href="" style="color:black;">image</a></div>
-        <div class="arhive-link"><a href="">archive</a></div>
+        <div class="main-link"><a href="">josunghyun</a><div class="mobile-squre"><img src="../../static/img/squre_13.svg" alt=""></div></div>
+        <div class="image-link"><a href="#" style="color:black;">image</a></div>
+        <div class="archive-link"><a href="">archive</a></div>
         <div class="email-link"><a href="">sungddol@gamil.com</a></div>
         <div class="social-link"><a href="">Instagram</a></div>
     </div>
@@ -221,31 +285,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
-// $(document).ready(function(){
-//   $('.content-slide').slick({
-//     // dots: true,
-//     // infinite: true,
-//     speed: 300,
-//     slidesToShow: 1,
-//     centerMode: true,
-//     variableWidth: true
-//   });
-// });
+    function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i.test(navigator.userAgent);
+    }
 
-    document.querySelectorAll('#titles > div').forEach(function(ele) {
-        ele.addEventListener('click', function() {
-            document.querySelectorAll('.content-count').forEach(function(ele) {
-                ele.style.display = 'none';
+    // document.querySelectorAll('#titles > div').forEach(function(ele) {
+    $('#titles > div').each(function() {
+        this.addEventListener('click', function() {
+            $('.content-count').each(function() {
+                $(this).css('display', 'none');
             })
+            if (!isMobile()) { // PC
+                $('#titles').css('width', '18%');
+                $('#contents').css('display', 'flex');
+            } else { // MOBILE
+                $('#titles').css('display', 'none');
+                $('#contents').css('display', 'block');
+                $('html').css('overflow', 'hidden');
 
-            document.getElementById('titles').style.width = '18%';
-
-            document.getElementById('contents').style.display = 'flex';
+                $('.content-slide').slick({
+                    arrows: false,
+                    infinite: false
+                });
+                
+            }
         })
     });
 
+    // MOBILE
+    if (isMobile()) {
+        $('.image-link').on('click', function() {
+            $('#main').css('display', 'block');
+            $('#titles').css('display', 'block');
+            $('html').css('position', 'static');
+            $('body').css('overflow-x', 'hidden');
+            $('html').css('overflow-y', 'auto');
+            
+            $('.archive-link, .email-link, .social-link').css('display', 'none');
+        })
+    }
 
 </script>
 </body>
