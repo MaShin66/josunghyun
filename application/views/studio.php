@@ -67,6 +67,10 @@
         cursor: pointer;
     }
 
+    #image-count-div {
+        display: none;
+    }
+
     /* PC */
     @media screen and (min-width: 768px) {
         html {
@@ -100,6 +104,7 @@
             overflow-y: hidden;
         }
         
+        /* PC에서는 안보이게 할 것들 */
         .mobile-squre {
             display: none;
         }
@@ -200,6 +205,10 @@
             overflow-y: hidden;
         }
 
+        #image-count-div {
+            float: right;
+            font-size: 0.8rem;
+        }
         .content {
             height: 500px !important;
         }
@@ -213,6 +222,12 @@
         .mobile-squre {
             display: block;
             float: right;
+        }
+
+        .image-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .archive-link, .email-link, .social-link {
@@ -241,7 +256,11 @@
 <body>
     <div id="header">
         <div class="main-link"><a href="">josunghyun</a><div class="mobile-squre"><img src="../../static/img/squre_13.svg" alt=""></div></div>
-        <div class="image-link"><a href="#" style="color:black;">image</a></div>
+        <div class="image-link"><a href="#" style="color:black;">image</a>
+            <div id="image-count-div">
+                <span id="image-count">1/4</span>
+            </div>
+        </div>
         <div class="archive-link"><a href="">archive</a></div>
         <div class="email-link"><a href="">sungddol@gamil.com</a></div>
         <div class="social-link"><a href="">Instagram</a></div>
@@ -287,11 +306,27 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
+    // 모바일 체크
     function isMobile() {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i.test(navigator.userAgent);
     }
 
-    // document.querySelectorAll('#titles > div').forEach(function(ele) {
+    // MOBILE
+    if (isMobile()) {
+        // 이미지 목록 선택했을 때
+        $('.image-link').on('click', function() {
+            $('#main').css('display', 'block');
+            $('#titles').css('display', 'block');
+            $('html').css('position', 'static');
+            $('body').css('overflow-x', 'hidden');
+            $('html').css('overflow-y', 'auto');
+            $('#image-count-div').css('display', 'none');
+            
+            $('.archive-link, .email-link, .social-link').css('display', 'none');
+        })
+    }
+
+    // 이미지 클릭했을 때
     $('#titles > div').each(function() {
         this.addEventListener('click', function() {
             $('.content-count').each(function() {
@@ -304,28 +339,21 @@
                 $('#titles').css('display', 'none');
                 $('#contents').css('display', 'block');
                 $('html').css('overflow', 'hidden');
+                $('#image-count-div').css('display', 'block');
 
                 $('.content-slide').slick({
                     arrows: false,
                     infinite: false
                 });
                 
+                $('.content-slide').on('init reInit afterChange', function(event, slick, currentSlide, nextSlide){
+                    var i = (currentSlide ? currentSlide : 0) + 1;
+
+                    $('#image-count').text(i + '/' + slick.slideCount);
+                });
             }
         })
     });
-
-    // MOBILE
-    if (isMobile()) {
-        $('.image-link').on('click', function() {
-            $('#main').css('display', 'block');
-            $('#titles').css('display', 'block');
-            $('html').css('position', 'static');
-            $('body').css('overflow-x', 'hidden');
-            $('html').css('overflow-y', 'auto');
-            
-            $('.archive-link, .email-link, .social-link').css('display', 'none');
-        })
-    }
 
 </script>
 </body>
