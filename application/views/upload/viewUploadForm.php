@@ -4,7 +4,7 @@
 </head>
 <body>
 
-<?php echo form_open_multipart('upload/do_upload');?>
+<?php echo form_open_multipart('admin/upload');?>
 
 <input type="file" name="userfile" size="20" />
 
