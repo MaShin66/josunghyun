@@ -8,7 +8,18 @@ class ControllerAdmin extends CI_Controller {
 
         public function index()
         {
-                $this->load->view('upload/viewUploadForm', array('error' => ' ' ));
+                $dir = "./uploads/";
+                if (is_dir($dir)){
+                        if ($dh = opendir($dir)){
+                                while (($file = readdir($dh)) !== false) {
+                                        if ($file !== '.' || $file !== '..') {
+                                                echo $file.'<br>';
+                                        }
+                                }
+                                closedir($dh);
+                        }
+                }
+                $this->load->view('upload/viewUploadForm', array('error' => ' '));
         }
 
         public function upload()

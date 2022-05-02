@@ -4,6 +4,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Studio">
+    <meta property="og:description" content="josunghyun 페이지">
+    <meta name="description" content="josunghyun 페이지">
 	<title>Studio</title>
 
 	<style type="text/css">
@@ -61,6 +64,7 @@
     body {
         font-family: HelveticaNeue-Medium;
         color: #808080;
+        background-color: white;
     }
 
     #titles > div {
@@ -76,8 +80,13 @@
         html {
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            position: fixed;
+            /* overflow: hidden; */
+            /* position: fixed; */
+        }
+        body {
+            /* position: fixed; */
+            width: 100%;
+            /* background-color: white; */
         }
         #main {
             height: 96vh;
@@ -86,6 +95,12 @@
         #header {
             display: flex;
             padding: 1% 1%;
+            justify-content: space-evenly;
+
+            position: fixed;
+            width: 100%;
+            background-color: white;
+            z-index: 1;
         }
 
         #titles {
@@ -93,6 +108,9 @@
             margin: 10px;
             line-height: 1.5rem;
             float: left;
+
+            overflow-y: scroll;
+            margin-top: 4%;
         }
         #contents {
             display: none;
@@ -133,6 +151,10 @@
             width: 10%;
             text-align: right;
         }
+
+        .mobile-text, .mobile-text2 {
+            display: none;
+        }
         
         .content-count {
             float: right;
@@ -140,7 +162,7 @@
 
         .content {
             position: absolute;
-            height: 80%;
+            height: 90%;
         }
 
         .content img {
@@ -156,11 +178,11 @@
         }
 
         .content-3 {
-            left: 200%;
+            left: 150%;
         }
 
         .content-4 {
-            left: 300%;
+            left: 250%;
         }
     }
 
@@ -172,15 +194,20 @@
             overflow: hidden;
             position: fixed;
         }
+
+        body {
+            font-family: HelveticaNeue-Light;
+        }
         #main {
             display: none;
         }
 
         #header {
             display: flex;
-            padding: 4% 4%;
+            padding: 4% 4% 0% 4%;
             flex-direction: column;
-            font-size: 1.2rem;
+            /* font-size: 1.2rem; */
+            line-height: 2rem;
         }
 
         #header > div {
@@ -188,10 +215,18 @@
             text-align: left;
         }
 
+        .main-link {
+            margin-bottom: 4%;
+        }
+
+        .main-link a {
+            color: #000000;
+        }
+
         #titles {
             width: 110%;
-            margin: 10px;
-            line-height: 1.5rem;
+            margin-left: 4%;
+            line-height: 1.8rem;
             float: left;
         }
 
@@ -224,27 +259,36 @@
             float: right;
         }
 
-        .image-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .mobile-squre img {
+            width: 12px;
         }
 
-        .archive-link, .email-link, .social-link {
+        .image-link {
+            /* display: flex;
+            justify-content: space-between;
+            align-items: center; */
+        }
+
+        .email-link, .social-link, .mobile-text, .mobile-text2 {
             position: absolute;
         }
 
-        .archive-link {
-            bottom: 1rem;
-        }
-
         .email-link {
-            bottom: 2.5rem;
+            bottom: 0.5rem;
         }
 
         .social-link {
-            bottom: 4rem;
+            bottom: 2rem;
         }
+
+        .mobile-text {
+            bottom: 6.5rem;
+        }
+
+        .mobile-text2 {
+            bottom: 5rem;
+        }
+
         .slick-slide {
             margin: 0 24px;
         }
@@ -263,7 +307,11 @@
         </div>
         <div class="archive-link"><a href="">archive</a></div>
         <div class="email-link"><a href="">sungddol@gamil.com</a></div>
-        <div class="social-link"><a href="">Instagram</a></div>
+        <div class="social-link"><a href="https://www.instagram.com/josunghyunn/" target="_blank">Instagram</a></div>
+
+        <div class="mobile-text">South Korea / love / perspective</div>
+        <div class="mobile-text2">chutzpah agency</div>
+
     </div>
     <div id="main">
         <div id="titles">
@@ -291,6 +339,15 @@
             <div>City Breeze 20FW Ninny Line<span class="content-count">8</span></div>
             <div>City Breeze 20FW Breeze Line<span class="content-count">12</span></div>
             <div>City Breeze 20FW City Line<span class="content-count">14</span></div>
+            <div>Blossom 20FW<span class="content-count">9</span></div>
+            <div>3 to 80 20FW<span class="content-count">8</span></div>
+            <div>Blossom 20FW<span class="content-count">20</span></div>
+            <div>The Seoul Live x Sumin<span class="content-count">9</span></div>
+            <div>City Breeze 20FW City Line<span class="content-count">14</span></div>
+            <div>Blossom 20FW<span class="content-count">9</span></div>
+            <div>3 to 80 20FW<span class="content-count">8</span></div>
+            <div>Blossom 20FW<span class="content-count">20</span></div>
+            <div>The Seoul Live x Sumin<span class="content-count">9</span></div>
             <div>Blossom 20FW<span class="content-count">9</span></div>
             <div>3 to 80 20FW<span class="content-count">8</span></div>
             <div>Blossom 20FW<span class="content-count">20</span></div>
@@ -323,15 +380,27 @@
             $('#image-count-div').css('display', 'none');
             
             $('.archive-link, .email-link, .social-link').css('display', 'none');
+
+            // 오른쪽 위 검은색 네모 회전 원래대로
+            $('.mobile-squre img').css('transform', 'unset');
         })
     }
 
     // 이미지 클릭했을 때
     $('#titles > div').each(function() {
         this.addEventListener('click', function() {
+            // 클릭 안된 것들 다시 본래색으로
+            $('#titles > div').each(function() {
+                $(this).css('color', '#808080');
+            })
+
+            // 클릭한 것들만 검은색으로
+            $(this).css('color', '#000000');
+
             $('.content-count').each(function() {
                 $(this).css('display', 'none');
             })
+
             if (!isMobile()) { // PC
                 $('#titles').css('width', '18%');
                 $('#contents').css('display', 'flex');
@@ -340,6 +409,25 @@
                 $('#contents').css('display', 'block');
                 $('html').css('overflow', 'hidden');
                 $('#image-count-div').css('display', 'block');
+
+                // 오른쪽 위 검은색 네모 회전
+                $('.mobile-squre img').css('transform', 'rotate(45deg)');
+                $('.mobile-squre img').css('transition', 'all 0.3s linear');
+
+                // 회전한 네모 누를시 목록처럼 나오게 하기 (위의 코드 중복)
+                $('.mobile-squre img').on('click', function() {
+                    $('#main').css('display', 'block');
+                    $('#titles').css('display', 'block');
+                    $('html').css('position', 'static');
+                    $('body').css('overflow-x', 'hidden');
+                    $('html').css('overflow-y', 'auto');
+                    $('#image-count-div').css('display', 'none');
+                    
+                    $('.archive-link, .email-link, .social-link').css('display', 'none');
+
+                    // 오른쪽 위 검은색 네모 회전 원래대로
+                    $('.mobile-squre img').css('transform', 'unset');
+                })
 
                 $('.content-slide').slick({
                     arrows: false,
@@ -352,6 +440,8 @@
                     $('#image-count').text(i + '/' + slick.slideCount);
                 });
             }
+
+            
         })
     });
 

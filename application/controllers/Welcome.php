@@ -29,11 +29,11 @@ class Welcome extends CI_Controller {
 		// 	closedir($dh);
 		// }
 
-		$this->load->view('studio');
+		// $this->load->view('studio');
 	}
 
 	public function admin()
 	{
-		$this->load->view('admin');
+		// $this->load->view('admin');
 	}
 }
