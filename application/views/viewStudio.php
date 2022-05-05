@@ -307,7 +307,7 @@
         </div>
         <div class="archive-link"><a href="">archive</a></div>
         <div class="email-link"><a href="">sungddol@gamil.com</a></div>
-        <div class="social-link"><a href="https://www.instagram.com/josunghyunn/" target="_blank">Instagram</a></div>
+        <div class="social-link"><a href="<?=$aInstagramUrl?>" target="_blank">Instagram</a></div>
 
         <div class="mobile-text">South Korea / love / perspective</div>
         <div class="mobile-text2">chutzpah agency</div>
@@ -315,43 +315,9 @@
     </div>
     <div id="main">
         <div id="titles">
-            <div>Untitle<span class="content-count">9</span></div>
-            <div>Drae 2022 pre-Spring Campagin<span class="content-count">6</span></div>
-            <div>Serum Kind<span class="content-count">2</span></div>
-            <div>Hyggee<span class="content-count">8</span></div>
-            <div>Fleamadonna 21capsule<span class="content-count">12</span></div>
-            <div>Muayae 21ss<span class="content-count">16</span></div>
-            <div>City-breeze-City-21-summer<span class="content-count">13</span></div>
-            <div>loah<span class="content-count">18</span></div>
-            <div>Nieeh 21ss<span class="content-count">20</span></div>
-            <div>Nueque 21ss capsule<span class="content-count">9</span></div>
-            <div>3 to 80 21ss<span class="content-count">10</span></div>
-            <div>Hummer studio 21ss<span class="content-count">14</span></div>
-            <div>drea 21FW<span class="content-count">10</span></div>
-            <div>Fassion Vol.5<span class="content-count">12</span></div>
-            <div>Fassion x Joy Gryson<span class="content-count">4</span></div>
-            <div>Nueque x Guitbol 21ss<span class="content-count">13</span></div>
-            <div>Dazed x Sadi Fed_issue<span class="content-count">18</span></div>
-            <div>Flan 21ss<span class="content-count">24</span></div>
-            <div>Blossom 21 Pre-Fall<span class="content-count">39</span></div>
-            <div>Drae 21 Pre-Fall<span class="content-count">26</span></div>
-            <div>Ane 1.5<span class="content-count">12</span></div>
-            <div>City Breeze 20FW Ninny Line<span class="content-count">8</span></div>
-            <div>City Breeze 20FW Breeze Line<span class="content-count">12</span></div>
-            <div>City Breeze 20FW City Line<span class="content-count">14</span></div>
-            <div>Blossom 20FW<span class="content-count">9</span></div>
-            <div>3 to 80 20FW<span class="content-count">8</span></div>
-            <div>Blossom 20FW<span class="content-count">20</span></div>
-            <div>The Seoul Live x Sumin<span class="content-count">9</span></div>
-            <div>City Breeze 20FW City Line<span class="content-count">14</span></div>
-            <div>Blossom 20FW<span class="content-count">9</span></div>
-            <div>3 to 80 20FW<span class="content-count">8</span></div>
-            <div>Blossom 20FW<span class="content-count">20</span></div>
-            <div>The Seoul Live x Sumin<span class="content-count">9</span></div>
-            <div>Blossom 20FW<span class="content-count">9</span></div>
-            <div>3 to 80 20FW<span class="content-count">8</span></div>
-            <div>Blossom 20FW<span class="content-count">20</span></div>
-            <div>The Seoul Live x Sumin<span class="content-count">9</span></div>
+            <?php foreach($aCategory as $value) : ?>
+                <div><?=$value['name']?><span class="content-count"><?=$value['count']?></span></div>
+            <?php endforeach ?>
         </div>
         <div id="contents" class="content-slide">
             <div class="content content-1"><img src="/static/img/City-breeze-City-21-summer:22/City-breeze-City-21-summer-1.jpg" alt=""></div>
@@ -379,7 +345,7 @@
             $('html').css('overflow-y', 'auto');
             $('#image-count-div').css('display', 'none');
             
-            $('.archive-link, .email-link, .social-link').css('display', 'none');
+            $('.archive-link, .email-link, .social-link, .mobile-text, .mobile-text2').css('display', 'none');
 
             // 오른쪽 위 검은색 네모 회전 원래대로
             $('.mobile-squre img').css('transform', 'unset');
@@ -423,7 +389,7 @@
                     $('html').css('overflow-y', 'auto');
                     $('#image-count-div').css('display', 'none');
                     
-                    $('.archive-link, .email-link, .social-link').css('display', 'none');
+                    $('.archive-link, .email-link, .social-link, .mobile-text, .mobile-text2').css('display', 'none');
 
                     // 오른쪽 위 검은색 네모 회전 원래대로
                     $('.mobile-squre img').css('transform', 'unset');

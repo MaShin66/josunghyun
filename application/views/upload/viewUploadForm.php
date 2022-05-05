@@ -4,13 +4,13 @@
 </head>
 <body>
 
-<?php echo form_open_multipart('admin/upload');?>
+<?php echo form_open_multipart('admin/uploadexec');?>
 
-<input type="file" name="userfile" size="20" />
+<input type="file" name="userfile" size="20">
 
 <br /><br />
 
-<input type="submit" value="upload" />
+<input type="submit" value="upload">
 
 </form>
 
