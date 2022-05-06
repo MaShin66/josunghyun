@@ -1,5 +1,5 @@
 <?php
-class modelCategory extends CI_Model {
+class ModelCategory extends CI_Model {
         public function __construct()
         {
                 parent::__construct();
@@ -22,6 +22,17 @@ class modelCategory extends CI_Model {
                 ->set('name', $sNewCategory)
                 ->where('id', $sId)
                 ->update('category')) {
+                        return true;
+                } else {
+                        return false;
+                }
+        }
+
+        public function deleteCategory($sId)
+        {
+                if ($this->db
+                ->where('id', $sId)
+                ->delete('category')) {
                         return true;
                 } else {
                         return false;

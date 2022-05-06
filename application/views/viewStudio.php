@@ -307,10 +307,10 @@
         </div>
         <div class="archive-link"><a href="">archive</a></div>
         <div class="email-link"><a href="">sungddol@gamil.com</a></div>
-        <div class="social-link"><a href="<?=$aInstagramUrl?>" target="_blank">Instagram</a></div>
+        <div class="social-link"><a href="<?=$sInstagramUrl?>" target="_blank">Instagram</a></div>
 
-        <div class="mobile-text">South Korea / love / perspective</div>
-        <div class="mobile-text2">chutzpah agency</div>
+        <div class="mobile-text"><?=$sMobileFristText?></div>
+        <div class="mobile-text2"><?=$sMobileSecondText?></div>
 
     </div>
     <div id="main">

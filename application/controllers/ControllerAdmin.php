@@ -4,8 +4,10 @@ class ControllerAdmin extends CI_Controller {
         public function __construct()
         {
                 parent::__construct();
-                $this->load->model('modelText');
-                $this->load->model('modelCategory');
+
+                $this->load->model('ModelText');
+                $this->load->model('ModelCategory');
+                $this->load->model('ModelImageContent');
 
                 // if ($_POST) {
 
@@ -28,22 +30,25 @@ class ControllerAdmin extends CI_Controller {
 
         public function category()
         {
-                $aCategory = $this->modelCategory->getAllCategory();
+                $aCategory = $this->ModelCategory->getAllCategory();
 
-                $this->load->view('viewCategoryList', array('aCategory' => $aCategory));
+                $this->load->view('viewCategory', array('aCategory' => $aCategory));
         }
 
         // 카테고리 눌렀을 때 이미지 보여주기
-        // public function categoryImage()
-        // {
-        //         $sCategory = $_GET['name'];
+        public function categoryImage()
+        {
+                $sCategory = $_GET['name'];
 
-        //         $this->load->model('content');
+                $aCategoryImage = $this->ModelImageContent->getImageContents($sCategory);
 
-        //         $aCategory = $this->contents->getAllCategory($sCategory);
+                $aAssign = array(
+                        'sCategory' => $sCategory,
+                        'aCategoryImage' => $aCategoryImage
+                );
 
-        //         $this->load->view('viewCategoryList', array('aCategory' => $aCategory));
-        // }
+                $this->load->view('viewCategoryImage', $aAssign);
+        }
 
         public function categoryinsert()
         {
@@ -51,7 +56,7 @@ class ControllerAdmin extends CI_Controller {
                 $aCategory = array('name' => $sCategory);
 
                 // db 값 추가
-                $iInsertId = $this->modelCategory->insertCategory($aCategory);
+                $iInsertId = $this->ModelCategory->insertCategory($aCategory);
 
                 // file 명도 추가
                 $oldumask = umask(0);
@@ -60,11 +65,10 @@ class ControllerAdmin extends CI_Controller {
 
                 if($iInsertId > 0) {
                         echo "<script>alert('카테고리가 추가됐습니다');</script>";
-                        echo("<script>location.replace('./category');</script>");
                 } else {
                         echo "<script>alert('카테고리를 추가에 실패했습니다');</script>";
-                        echo("<script>location.replace('./category');</script>");
                 }
+                echo "<script>location.replace('./category');</script>";
         }
 
         public function categoryupdate()
@@ -74,23 +78,41 @@ class ControllerAdmin extends CI_Controller {
                 $sNewCategory = $_GET['newCategory'];
 
                 // db 값 바꾸기
-                $bisSucc = $this->modelCategory->updateCategory($sId, $sNewCategory);
+                $bisSucc = $this->ModelCategory->updateCategory($sId, $sNewCategory);
 
                 // file 명도 바꾸기
                 rename('./uploads/'.$sOldCategory, './uploads/'.$sNewCategory);
 
                 if($bisSucc) {
                         echo "<script>alert('변경에 성공했습니다');</script>";
-                        echo("<script>location.replace('./category');</script>");
                 } else {
                         echo "<script>alert('변경에 실패했습니다');</script>";
-                        echo("<script>location.replace('./category');</script>");
                 }
+                echo "<script>location.replace('./category');</script>";
+        }
+
+        public function categoryDelete()
+        {
+                $sId = $_POST['id'];
+                $sCategory = $_POST['category'];
+
+                // db에서 지우고
+                $bisSucc = $this->ModelCategory->deleteCategory($sId);
+
+                // file에서도 지우기
+                rmdir('./uploads/'.$sCategory);
+
+                if($bisSucc) {
+                        echo "<script>alert('삭제에 성공했습니다');</script>";
+                } else {
+                        echo "<script>alert('삭제에 실패했습니다');</script>";
+                }
+                echo "<script>location.replace('./category');</script>";
         }
 
         public function instagram()
         {
-		$aInstagramUrl = $this->modelText->getInstagramUrl();
+		$aInstagramUrl = $this->ModelText->getInstagramUrl();
 
 		$aAssign = array(
 			'aInstagramUrl' => $aInstagramUrl['url']
@@ -103,20 +125,41 @@ class ControllerAdmin extends CI_Controller {
         {
                 $sEditUrl = $_GET["url"];
 
-                $bisSucc = $this->modelText->updateInstagramUrl($sEditUrl);
+                $bisSucc = $this->ModelText->updateInstagramUrl($sEditUrl);
                 
                 if($bisSucc) {
                         echo "<script>alert('변경에 성공했습니다');</script>";
-                        echo("<script>location.replace('./instagram');</script>");
                 } else {
                         echo "<script>alert('변경에 실패했습니다');</script>";
-                        echo("<script>location.replace('./instagram');</script>");
                 }
+                echo "<script>location.replace('./instagram');</script>";
         }
 
         public function textEdit()
         {
-                $this->load->view('viewTextEdit');
+                $aMobileText = $this->ModelText->getMobileText();
+
+		$aAssign = array(
+			'sMobileFristText' => $aMobileText[0]['url'],
+			'sMobileSecondText' => $aMobileText[1]['url']
+		);
+
+                $this->load->view('viewTextEdit', $aAssign);
+        }
+
+        public function textExec()
+        {
+                $sFirstLine = $_GET["firstLine"];
+                $sSecondLine = $_GET["secondLine"];
+
+                $bisSucc = $this->ModelText->updateMobileText($sFirstLine, $sSecondLine);
+                
+                if($bisSucc) {
+                        echo "<script>alert('변경에 성공했습니다');</script>";
+                } else {
+                        echo "<script>alert('변경에 실패했습니다');</script>";
+                }
+                echo "<script>location.replace('./textEdit');</script>";
         }
 
         public function adminId()
@@ -148,12 +191,9 @@ class ControllerAdmin extends CI_Controller {
 
         public function uploadexec()
         {
-                // temp 라는 이름으로 일단 폴더 만들기 함
-                $oldumask = umask(0);
-                mkdir('./uploads/temp', 0777, true);
-                umask($oldumask);
+                $sCategory = $_POST['category'];
 
-                $config['upload_path']          = './uploads/temp';
+                $config['upload_path']          = './uploads/'.$sCategory;
                 $config['allowed_types']        = 'gif|jpg|png';
                 $confg['file_ext_tolower']      = true;
                 $config['max_size']             = 0; // 2 MB (2048 KB) 가 최대
@@ -170,21 +210,38 @@ class ControllerAdmin extends CI_Controller {
                         // 업로드 하고
                         $aUploadData = $this->upload->data();
 
-                        $this->load->model('modelImageContent');
-
-                        // 폴더 이름이 temp
-                        $aUploadData['folder_name'] = 'temp';
+                        $aUploadData['category'] = $sCategory;
 
                         // db에 해당 정보 넣고
-                        $this->modelImageContent->insertUpload($aUploadData);
+                        $bisSucc = $this->ModelImageContent->insertUpload($aUploadData);
 
-                        // 넣고 난 리턴 값 받아오기
-                        $aImageContents = $this->modelImageContent->getImageContents();
-
-                        $aData = array('aImageContents' => $aImageContents);
-
-                        $this->load->view('upload/viewUploadSuccess', $aData);
+                        if($bisSucc > 0) {
+                                echo "<script>alert('업로드 성공했습니다');</script>";
+                        } else {
+                                echo "<script>alert('변경에 실패했습니다');</script>";
+                        }
+                        echo "<script>location.replace('../categoryImage?name=$sCategory');</script>";
                 }
+        }
+
+        public function deleteImage()
+        {
+                $sContentIdx = $_POST['contentIdx'];
+                $sCategory = $_POST['category'];
+                $sfileName = $_POST['fileName'];
+
+                // db에서 지우고
+                $bisSucc = $this->ModelImageContent->deleteImage($sContentIdx);
+
+                // file에서도 지우기
+                unlink('./uploads/'.$sCategory.'/'.$sfileName);
+
+                if($bisSucc) {
+                        echo "<script>alert('삭제에 성공했습니다');</script>";
+                } else {
+                        echo "<script>alert('삭제에 실패했습니다');</script>";
+                }
+                echo "<script>location.replace('./categoryImage?name=$sCategory');</script>";
         }
 }
 ?>

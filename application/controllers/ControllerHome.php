@@ -2,17 +2,25 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ControllerHome extends CI_Controller {
-	public function index()
+	public function __construct()
 	{
-		$this->load->model('modelText');
-		$aInstagramUrl = $this->modelText->getInstagramUrl();
+		$this->load->model('ModelText');
+		$this->load->model('ModelCategory');
+	}
 
-		$this->load->model('modelCategory');
-		$aCategory = $this->modelCategory->getCategory();
+	public function index()
+	{	
+		$aInstagramUrl = $this->ModelText->getInstagramUrl();
 
+		$aMobileText = $this->ModelText->getMobileText();
+		
+		$aCategory = $this->ModelCategory->getAllCategory();
+		
 		$aAssign = array(
-			'aInstagramUrl' => $aInstagramUrl['url'],
-			'aCategory' => $aCategory
+			'sInstagramUrl' => $aInstagramUrl['url'],
+			'aCategory' => $aCategory,
+			'sMobileFristText' => $aMobileText[0]['url'],
+			'sMobileSecondText' => $aMobileText[1]['url']
 		);
 
 		$this->load->view('viewStudio', $aAssign);
