@@ -168,21 +168,6 @@
             height: 100%;
         }
 
-        .content-1 {
-            left: 0%;
-        }
-
-        .content-2 {
-            left: 95%;
-        }
-
-        .content-3 {
-            left: 141%;
-        }
-
-        .content-4 {
-            left: 237%;
-        }
         ::-webkit-scrollbar {
             display: none;
         }
@@ -242,6 +227,7 @@
             overflow-x: scroll;
             overflow-y: hidden;
         }
+        
 
         #image-count-div {
             float: right;
@@ -300,6 +286,10 @@
         .slick-slide {
             margin: 0 24px;
         }
+
+        .content-count {
+            display: none;
+        }
     }
 	</style>
 
@@ -310,7 +300,7 @@
         <div class="main-link"><a href="">josunghyun</a><div class="mobile-squre"><img src="../../static/img/squre_13.svg" alt=""></div></div>
         <div class="image-link"><a href="#" style="color:black;">image</a>
             <div id="image-count-div">
-                <span id="image-count">1/4</span>
+                <span id="image-count"></span>
             </div>
         </div>
         <div class="archive-link"><a href="">archive</a></div>
@@ -329,23 +319,17 @@
         </div>
 
         <?php foreach ($aGroupCategoryImage as $key => $value) : ?>
-            <div class="contents content-slide <?=$key?>">
+            <div class="contents <?=$key?>" data-imgcount="<?=count($aGroupCategoryImage[$key])?>">
                 <?php foreach ($aGroupCategoryImage[$key] as $key => $value) : ?>    
-                    <div class="content content-<?=$key+1?>"><img src="../../uploads/<?=$value['category']?>/<?=$value['file_name']?>" alt=""></div>
+                    <div class="content content-<?=$key+1?>" style="left: <?=45 * $key?>%;">
+                        <img src="../../uploads/<?=$value['category']?>/<?=$value['file_name']?>" 
+                            data-width=<?=$value['image_width']?>
+                            data-height=<?=$value['image_height']?>
+                            alt="">
+                    </div>
                 <?php endforeach ?>
             </div>
-            
-            
         <?php endforeach ?>
-
-        <!-- <div id="contents" class="content-slide">
-            <div class="content content-1"><img src="../../uploads/Drae 2022 pre-Spring Campagin/City-breeze-City-21-summer-16.jpg" alt=""></div>
-            <div class="content content-2"><img src="/static/img/City-breeze-City-21-summer:22/City-breeze-City-21-summer-9.jpg" alt=""></div>
-            <div class="content content-3"><img src="/static/img/City-breeze-City-21-summer:22/City-breeze-City-21-summer-2.jpg" alt=""></div>
-            <div class="content content-4"><img src="/static/img/City-breeze-City-21-summer:22/City-breeze-City-21-summer-3.jpg" alt=""></div>
-        </div> -->
-
-
     </div>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -354,6 +338,21 @@
     function isMobile() {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|OperaMini/i.test(navigator.userAgent);
     }
+
+    // 마우스 스크롤시 좌우 이동
+    function row_scroll() {
+        $(".contents").on('mousewheel', function(e) {
+            let wheelDelta = e.originalEvent.wheelDelta;
+
+            if (wheelDelta > 0) {
+                $(this).scrollLeft(-wheelDelta + $(this).scrollLeft());
+            } else {
+                $(this).scrollLeft(-wheelDelta + $(this).scrollLeft());
+            }
+        })
+    }
+
+    row_scroll();
 
     // MOBILE
     if (isMobile()) {
@@ -376,31 +375,6 @@
     // 이미지 클릭했을 때
     $('#titles > div').each(function() {
         this.addEventListener('click', function() {
-
-            // let category = $(this).children("#category").text();
-
-            // // 이미지 불러오기
-            // fetch("./home/getimage", {
-            //     method: "POST",
-            //     headers: {
-            //     "Content-Type": "application/json",
-            // },
-            //     body: JSON.stringify({
-            //         category: category
-            //     }),
-            // })
-            // .then((response) => response.json())
-            // .then(data => 
-            //     $.each(data, function(index, item) {
-            //         let domElement = $(`<div class="content content-${index+1}"> <img src="../../uploads/${item.category}/${item.file_name}" alt=""></div>`);
-
-            //         console.log(domElement);
-                    
-            //         $("#contents").append(domElement);
-            //     }))
-            // .catch((error) => console.log("error:", error));
-
-
             // 클릭 안된 것들 다시 본래색으로
             $('#titles > div').each(function() {
                 $(this).css('color', '#808080');
@@ -409,6 +383,7 @@
             // 클릭한 것들만 검은색으로
             $(this).css('color', '#000000');
 
+            // 카테고리마다 몇개의 이미지 있는지 가리기
             $('.content-count').each(function() {
                 $(this).css('display', 'none');
             })
@@ -420,14 +395,65 @@
                     // 해당 class 가 있다면 보여주고
                     if ($(this).hasClass(category)) {
                         $(this).css('display', 'flex');
+
+                        // 가로 가 더 긴 이미지들 줄이기
+                        $(this).find('img').each(function(index, elem) {
+                            let imgWidth = $(this).data('width');
+                            let imgHeight = $(this).data('height');
+
+                            if (imgWidth > imgHeight) {
+                                $(this).css('height', '480px');
+                                $(this).css('margin-top', '16%');
+                            }
+                        });
+
                     } else { // 해당 class 가 없다면 가리기
                         $(this).css('display', 'none');
                     }
-                    
                 });
             } else { // MOBILE
+                // image count 에 숫자 넣기
+                let imageCount = $(this).find('.content-count').text();
+                $('#image-count').text('1/'+imageCount);
+
+                let category = $(this).children("#category").text();
+
+                // $(".slider").not('.slick-initialized').slick();
+
+                $('.contents').each(function(index, elem) {
+                    // 해당 class 가 있다면 보여주고
+                    if ($(this).hasClass(category)) {
+                        $(this).css('display', 'block');
+
+                        // 재클릭했을 때 오류 방지 위해
+                        $(this).removeClass('content-slide');
+                        $(this).removeClass('slick-initialized');
+
+                        // 해당 카테고리만 content-slide class 추가
+                        $(this).addClass('content-slide');
+
+                        // 가로 가 더 긴 이미지들 줄이기
+                        $(this).find('img').each(function(index, elem) {
+                            let imgWidth = $(this).data('width');
+                            let imgHeight = $(this).data('height');
+
+                            if (imgWidth > imgHeight) {
+                                $(this).css('height', '50%');
+                                $(this).css('margin-top', '36%');
+                            }
+                        });
+                        
+                        
+                    } else { // 해당 class 가 없다면 가리기
+                        $(this).css('display', 'none');
+
+                        // 재클릭했을 때 오류 방지 위해
+                        $(this).removeClass('content-slide');
+                        $(this).removeClass('slick-initialized');
+                    }
+                });
+
                 $('#titles').css('display', 'none');
-                $('.contents').css('display', 'block');
                 $('html').css('overflow', 'hidden');
                 $('#image-count-div').css('display', 'block');
 
@@ -454,12 +480,16 @@
                     arrows: false,
                     infinite: false
                 });
-                
+
+                $(".slider").not('.slick-initialized').slick();
+
                 $('.content-slide').on('init reInit afterChange', function(event, slick, currentSlide, nextSlide){
                     var i = (currentSlide ? currentSlide : 0) + 1;
 
-                    $('#image-count').text(i + '/' + slick.slideCount);
+                    $('#image-count').text(i + '/' + imageCount);
                 });
+
+                
             }
 
             
