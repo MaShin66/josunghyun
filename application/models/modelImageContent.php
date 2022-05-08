@@ -5,6 +5,13 @@ class ModelImageContent extends CI_Model {
                 parent::__construct();
         }
 
+        public function getAllImageContents()
+        {
+                return $this->db
+                ->get('contents')
+                ->result_array();
+        }
+
         public function getImageContents($sCategory)
         {
                 return $this->db

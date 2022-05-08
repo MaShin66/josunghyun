@@ -28,6 +28,24 @@ class ModelCategory extends CI_Model {
                 }
         }
 
+        public function updateCategoryCount($sCategory)
+        {
+                $sPrevCount = $this->db
+                ->select('count')
+                ->where('name', $sCategory)
+                ->get('category')
+                ->row_array();
+
+                if($this->db
+                ->set('count', (int) $sPrevCount['count']+1)
+                ->where('name', $sCategory)
+                ->update('category')) {
+                        return true;
+                } else {
+                        return false;
+                }
+        }
+
         public function deleteCategory($sId)
         {
                 if ($this->db

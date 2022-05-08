@@ -4,7 +4,7 @@
 
 <h1><?=$sCategory?></h1>
 
-<?=form_open_multipart('admin/uploadexec/');?>
+<?=form_open_multipart('admin/insertImage/');?>
     <input type="hidden" name="category" value="<?=$sCategory?>">
     <input type="file" name="userfile" size="20">
     <br>

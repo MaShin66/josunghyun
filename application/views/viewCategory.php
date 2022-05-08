@@ -10,7 +10,7 @@
 <?php foreach ($aCategory as $value) : ?>
     <div><a href="./categoryImage?name=<?=$value['name']?>"><?=$value['name']?></a></div>
 
-    <form action="./categoryupdate" method="GET">
+    <form action="./categoryUpdate" method="GET">
         <input type="hidden" name="id" value="<?=$value['id']?>">
         <input type="hidden" name="oldCategory" value="<?=$value['name']?>">
         <input type="text" name="newCategory" value="<?=$value['name']?>" style="width: 30%">

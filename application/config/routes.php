@@ -53,5 +53,8 @@ $route['default_controller'] = 'ControllerHome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['home'] = 'ControllerHome';
+$route['home/(:any)'] = 'ControllerHome/$1';
+
 $route['admin'] = 'ControllerAdmin';
 $route['admin/(:any)'] = 'ControllerAdmin/$1';

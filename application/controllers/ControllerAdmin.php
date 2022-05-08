@@ -71,7 +71,7 @@ class ControllerAdmin extends CI_Controller {
                 echo "<script>location.replace('./category');</script>";
         }
 
-        public function categoryupdate()
+        public function categoryUpdate()
         {
                 $sId = $_GET['id'];
                 $sOldCategory = $_GET['oldCategory'];
@@ -167,29 +167,28 @@ class ControllerAdmin extends CI_Controller {
                 $this->load->view('viewAdminId');
         }
         
-        public function upload()
-        {
-                // uploads 안의 모든 폴더와 파일 가져오기
-                $dir = "./uploads/";
-                if (is_dir($dir)){
-                        if ($dh = opendir($dir)){
-                                while (($file = readdir($dh)) !== false) {
-                                        // . 와 .. 는 빼고 보여주기
+        // public function upload()
+        // {
+        //         // uploads 안의 모든 폴더와 파일 가져오기
+        //         $dir = "./uploads/";
+        //         if (is_dir($dir)){
+        //                 if ($dh = opendir($dir)){
+        //                         while (($file = readdir($dh)) !== false) {
+        //                                 // . 와 .. 는 빼고 보여주기
         
-                                        if ($file !== '.' || $file !== '..') {
-                                                // echo '<xmp>';
-                                                // var_dump($file);
-                                                echo $file.'<br>';
-                                        }
-                                }
-                                closedir($dh);
-                        }
-                }
-                $this->load->view('upload/viewUploadForm', array('error' => ' '));
+        //                                 if ($file !== '.' || $file !== '..') {
+        //                                         // echo '<xmp>';
+        //                                         // var_dump($file);
+        //                                         echo $file.'<br>';
+        //                                 }
+        //                         }
+        //                         closedir($dh);
+        //                 }
+        //         }
+        //         $this->load->view('upload/viewUploadForm', array('error' => ' '));
+        // }
 
-        }
-
-        public function uploadexec()
+        public function insertImage()
         {
                 $sCategory = $_POST['category'];
 
@@ -214,6 +213,11 @@ class ControllerAdmin extends CI_Controller {
 
                         // db에 해당 정보 넣고
                         $bisSucc = $this->ModelImageContent->insertUpload($aUploadData);
+
+                        if ($bisSucc > 0) {
+                                // category 에 count 숫자 올리기
+                                $bisSucc = $this->ModelCategory->updateCategoryCount($sCategory);
+                        }
 
                         if($bisSucc > 0) {
                                 echo "<script>alert('업로드 성공했습니다');</script>";

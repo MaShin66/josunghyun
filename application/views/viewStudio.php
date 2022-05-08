@@ -27,8 +27,7 @@
         margin: 0;
         padding: 0;
         border: 0;
-        font-size: 100%;
-        font: inherit;
+        font-size: 14px;
         vertical-align: baseline;
         }
     /* HTML5 display-role reset for older browsers */
@@ -95,7 +94,7 @@
         #header {
             display: flex;
             padding: 1% 1%;
-            justify-content: space-evenly;
+            justify-content: space-between;
 
             position: fixed;
             width: 100%;
@@ -105,14 +104,14 @@
 
         #titles {
             width: 20%;
-            margin: 10px;
+            margin: 12px;
             line-height: 1.5rem;
             float: left;
 
             overflow-y: scroll;
             margin-top: 4%;
         }
-        #contents {
+        .contents {
             display: none;
             flex-direction: column;
             justify-content: center;
@@ -128,28 +127,28 @@
         }
 
         .main-link {
-            width: 30%;
+            /* width: 30%; */
             text-align: left;
         }
 
         .image-link {
-            width: 15%;
-            text-align: center;
+            width: 40%;
+            text-align: right;
         }
 
-        .arhive-link {
-            width: 15%;
-            text-align: center;
+        .archive-link {
+            width: 0%;
+            text-align: left;
         }
 
         .email-link {
-            width: 30%;
-            text-align: center;
+            width: 20%;
+            text-align: right;
         }
 
         .social-link {
-            width: 10%;
-            text-align: right;
+            width: 8%;
+            text-align: left;
         }
 
         .mobile-text, .mobile-text2 {
@@ -174,15 +173,18 @@
         }
 
         .content-2 {
-            left: 100%;
+            left: 95%;
         }
 
         .content-3 {
-            left: 150%;
+            left: 141%;
         }
 
         .content-4 {
-            left: 250%;
+            left: 237%;
+        }
+        ::-webkit-scrollbar {
+            display: none;
         }
     }
 
@@ -196,7 +198,7 @@
         }
 
         body {
-            font-family: HelveticaNeue-Light;
+            font-family: HelveticaNeue-Medium;
         }
         #main {
             display: none;
@@ -204,7 +206,7 @@
 
         #header {
             display: flex;
-            padding: 4% 4% 0% 4%;
+            padding: 4% 7% 2% 7%;
             flex-direction: column;
             /* font-size: 1.2rem; */
             line-height: 2rem;
@@ -224,13 +226,14 @@
         }
 
         #titles {
+            font-family: 'regular';
             width: 110%;
-            margin-left: 4%;
+            margin-left: 7%;
             line-height: 1.8rem;
             float: left;
         }
 
-        #contents {
+        .contents {
             display: none;
             flex-direction: column;
             justify-content: center;
@@ -244,6 +247,11 @@
             float: right;
             font-size: 0.8rem;
         }
+
+        #image-count {
+            font-family: 'medium';
+        }
+        
         .content {
             height: 500px !important;
         }
@@ -316,15 +324,28 @@
     <div id="main">
         <div id="titles">
             <?php foreach($aCategory as $value) : ?>
-                <div><?=$value['name']?><span class="content-count"><?=$value['count']?></span></div>
+                <div><span id="category"><?=$value['name']?></span><span class="content-count"><?=$value['count']?></span></div>
             <?php endforeach ?>
         </div>
-        <div id="contents" class="content-slide">
-            <div class="content content-1"><img src="/static/img/City-breeze-City-21-summer:22/City-breeze-City-21-summer-1.jpg" alt=""></div>
+
+        <?php foreach ($aGroupCategoryImage as $key => $value) : ?>
+            <div class="contents content-slide <?=$key?>">
+                <?php foreach ($aGroupCategoryImage[$key] as $key => $value) : ?>    
+                    <div class="content content-<?=$key+1?>"><img src="../../uploads/<?=$value['category']?>/<?=$value['file_name']?>" alt=""></div>
+                <?php endforeach ?>
+            </div>
+            
+            
+        <?php endforeach ?>
+
+        <!-- <div id="contents" class="content-slide">
+            <div class="content content-1"><img src="../../uploads/Drae 2022 pre-Spring Campagin/City-breeze-City-21-summer-16.jpg" alt=""></div>
             <div class="content content-2"><img src="/static/img/City-breeze-City-21-summer:22/City-breeze-City-21-summer-9.jpg" alt=""></div>
             <div class="content content-3"><img src="/static/img/City-breeze-City-21-summer:22/City-breeze-City-21-summer-2.jpg" alt=""></div>
             <div class="content content-4"><img src="/static/img/City-breeze-City-21-summer:22/City-breeze-City-21-summer-3.jpg" alt=""></div>
-        </div>
+        </div> -->
+
+
     </div>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
@@ -355,6 +376,31 @@
     // 이미지 클릭했을 때
     $('#titles > div').each(function() {
         this.addEventListener('click', function() {
+
+            // let category = $(this).children("#category").text();
+
+            // // 이미지 불러오기
+            // fetch("./home/getimage", {
+            //     method: "POST",
+            //     headers: {
+            //     "Content-Type": "application/json",
+            // },
+            //     body: JSON.stringify({
+            //         category: category
+            //     }),
+            // })
+            // .then((response) => response.json())
+            // .then(data => 
+            //     $.each(data, function(index, item) {
+            //         let domElement = $(`<div class="content content-${index+1}"> <img src="../../uploads/${item.category}/${item.file_name}" alt=""></div>`);
+
+            //         console.log(domElement);
+                    
+            //         $("#contents").append(domElement);
+            //     }))
+            // .catch((error) => console.log("error:", error));
+
+
             // 클릭 안된 것들 다시 본래색으로
             $('#titles > div').each(function() {
                 $(this).css('color', '#808080');
@@ -368,11 +414,20 @@
             })
 
             if (!isMobile()) { // PC
-                $('#titles').css('width', '18%');
-                $('#contents').css('display', 'flex');
+                let category = $(this).children("#category").text();
+
+                $('.contents').each(function(index, elem) {
+                    // 해당 class 가 있다면 보여주고
+                    if ($(this).hasClass(category)) {
+                        $(this).css('display', 'flex');
+                    } else { // 해당 class 가 없다면 가리기
+                        $(this).css('display', 'none');
+                    }
+                    
+                });
             } else { // MOBILE
                 $('#titles').css('display', 'none');
-                $('#contents').css('display', 'block');
+                $('.contents').css('display', 'block');
                 $('html').css('overflow', 'hidden');
                 $('#image-count-div').css('display', 'block');
 
