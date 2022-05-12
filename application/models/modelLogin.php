@@ -5,12 +5,12 @@ class ModelLogin extends CI_Model {
                 parent::__construct();
         }
 
-        public function isLogin()
+        public function getUserData($sId)
         {
                 return $this->db
                 ->select('*')
-                ->from('innerText')
-                ->where('element', 'instagram')
+                ->from('admin')
+                ->where('user_id', $sId)
                 ->get()->row_array();
         }
 

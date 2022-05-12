@@ -22,10 +22,6 @@ class ControllerHome extends CI_Controller {
 		$aImageList = $this->ModelImageContent->getAllImageContents();
 
 		$aGroupCategoryImage = $this->GroupCategoryImage($aImageList);
-
-		// echo '<xmp>';
-		// print_r($aGroupCategoryImage);
-		// exit();
 		
 		$aAssign = array(
 			'sInstagramUrl' => $aInstagramUrl['url'],

@@ -9,12 +9,10 @@ class ControllerAdmin extends CI_Controller {
                 $this->load->model('ModelCategory');
                 $this->load->model('ModelImageContent');
 
-                // if ($_POST) {
-
-                // } else {
-
-                // }
-
+                if(!$this->session->userdata('is_login')) {
+                        $this->load->view('viewLogin');
+                        redirect('/login');
+                }
         }
 
         public function index()
@@ -22,11 +20,6 @@ class ControllerAdmin extends CI_Controller {
                 // $this->load->view('viewLogin');
                 $this->load->view('viewAdmin');
         }
-
-        // public function list()
-        // {
-        //         $this->load->view('viewAdmin');
-        // }
 
         public function category()
         {
@@ -166,27 +159,6 @@ class ControllerAdmin extends CI_Controller {
         {
                 $this->load->view('viewAdminId');
         }
-        
-        // public function upload()
-        // {
-        //         // uploads 안의 모든 폴더와 파일 가져오기
-        //         $dir = "./uploads/";
-        //         if (is_dir($dir)){
-        //                 if ($dh = opendir($dir)){
-        //                         while (($file = readdir($dh)) !== false) {
-        //                                 // . 와 .. 는 빼고 보여주기
-        
-        //                                 if ($file !== '.' || $file !== '..') {
-        //                                         // echo '<xmp>';
-        //                                         // var_dump($file);
-        //                                         echo $file.'<br>';
-        //                                 }
-        //                         }
-        //                         closedir($dh);
-        //                 }
-        //         }
-        //         $this->load->view('upload/viewUploadForm', array('error' => ' '));
-        // }
 
         public function insertImage()
         {

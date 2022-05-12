@@ -321,7 +321,7 @@
         <?php foreach ($aGroupCategoryImage as $key => $value) : ?>
             <div class="contents <?=$key?>" data-imgcount="<?=count($aGroupCategoryImage[$key])?>">
                 <?php foreach ($aGroupCategoryImage[$key] as $key => $value) : ?>    
-                    <div class="content content-<?=$key+1?>" style="left: <?=45 * $key?>%;">
+                    <div class="content content-<?=$key+1?>" style="">
                         <img src="../../uploads/<?=$value['category']?>/<?=$value['file_name']?>" 
                             data-width=<?=$value['image_width']?>
                             data-height=<?=$value['image_height']?>
@@ -407,6 +407,13 @@
                             }
                         });
 
+                        // 간격 조절하기
+                        let leftSize = 0;
+                        $(this).children('.content').each(function(index, elem) {
+                            $(this).css('left', leftSize+'px');
+                            leftSize += Number($(this).width()) + 30;
+                        })
+
                     } else { // 해당 class 가 없다면 가리기
                         $(this).css('display', 'none');
                     }
@@ -417,8 +424,6 @@
                 $('#image-count').text('1/'+imageCount);
 
                 let category = $(this).children("#category").text();
-
-                // $(".slider").not('.slick-initialized').slick();
 
                 $('.contents').each(function(index, elem) {
                     // 해당 class 가 있다면 보여주고
@@ -442,8 +447,6 @@
                                 $(this).css('margin-top', '36%');
                             }
                         });
-                        
-                        
                     } else { // 해당 class 가 없다면 가리기
                         $(this).css('display', 'none');
 

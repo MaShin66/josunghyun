@@ -1,4 +1,4 @@
-<form action="./admin/list" method="POST">
+<form action="./login/exec" method="POST">
     <input type="text" name="id" value="">
     <br>
     <input type="password" name="password" value="">
