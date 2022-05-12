@@ -33,9 +33,12 @@ class ControllerAdmin extends CI_Controller {
         {
                 $sCategory = $_GET['name'];
 
+                $CategoryId = $this->ModelCategory->getCategoryId($sCategory);
+
                 $aCategoryImage = $this->ModelImageContent->getImageContents($sCategory);
 
                 $aAssign = array(
+                        'sCategoryId' => $CategoryId['id'],
                         'sCategory' => $sCategory,
                         'aCategoryImage' => $aCategoryImage
                 );
@@ -47,6 +50,10 @@ class ControllerAdmin extends CI_Controller {
         {
                 $sCategory = $_GET['category'];
                 $aCategory = array('name' => $sCategory);
+
+                $sOrderNumber = $this->ModelCategory->getMaxOrderNumber();
+
+                $aCategory['orderNumber'] = (int)$sOrderNumber['orderNumber'] + 1;
 
                 // db 값 추가
                 $iInsertId = $this->ModelCategory->insertCategory($aCategory);
@@ -66,7 +73,7 @@ class ControllerAdmin extends CI_Controller {
 
         public function categoryUpdate()
         {
-                $sId = $_GET['id'];
+                $sId = $_GET['sId'];
                 $sOldCategory = $_GET['oldCategory'];
                 $sNewCategory = $_GET['newCategory'];
 
@@ -85,8 +92,8 @@ class ControllerAdmin extends CI_Controller {
         }
 
         public function categoryDelete()
-        {
-                $sId = $_POST['id'];
+        {       
+                $sId = $_POST['sId'];
                 $sCategory = $_POST['category'];
 
                 // db에서 지우고
@@ -99,6 +106,20 @@ class ControllerAdmin extends CI_Controller {
                         echo "<script>alert('삭제에 성공했습니다');</script>";
                 } else {
                         echo "<script>alert('삭제에 실패했습니다');</script>";
+                }
+                echo "<script>location.replace('./category');</script>";
+        }
+
+        public function categoryorder()
+        {
+                foreach($_POST['categoryId'] as $key => $sCategoryId) {
+                        $bisSucc = $this->ModelCategory->updateCategoryOrdering($key+1, $sCategoryId);
+                }
+
+                if($bisSucc) {
+                        echo "<script>alert('순서 변경에 성공했습니다');</script>";
+                } else {
+                        echo "<script>alert('순서 변경에 실패했습니다');</script>";
                 }
                 echo "<script>location.replace('./category');</script>";
         }

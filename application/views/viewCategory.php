@@ -1,3 +1,22 @@
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+
+<style>
+    #sortable 
+    li {
+        border: 1px solid black;
+        width: 50%;
+        padding: 1%;
+    }
+
+    #sortable
+    li
+    a {
+        text-decoration: none;
+    }
+</style>
+
 <a href=".">목록으로</a>
 <br>
 <br>
@@ -7,19 +26,23 @@
     <input type="submit" value="추가하기">
 </form>
 
-<?php foreach ($aCategory as $value) : ?>
-    <div><a href="./categoryImage?name=<?=$value['name']?>"><?=$value['name']?></a></div>
+<form action="./categoryorder" method="POST">
+    <input type="submit" value="순서바꾸기">
+    <ol id="sortable">
+        <?php foreach ($aCategory as $value) : ?>
+            <li>
+                <input type="hidden" name="categoryId[]" value="<?=$value['id']?>">
+                <input type="hidden" name="categoryOrder[]" value="<?=$value['orderNumber']?>">
+                <input type="hidden" name="categoryName[]" value="<?=$value['name']?>">
+                <div><a href="./categoryImage?name=<?=$value['name']?>"><?=$value['name']?></a></div>
+            </li>
+        <?php endforeach ?>
+    </ol>
+</form>
 
-    <form action="./categoryUpdate" method="GET">
-        <input type="hidden" name="id" value="<?=$value['id']?>">
-        <input type="hidden" name="oldCategory" value="<?=$value['name']?>">
-        <input type="text" name="newCategory" value="<?=$value['name']?>" style="width: 30%">
-        <input type="submit" value="수정">
-    </form>
-
-    <form action="./categoryDelete" method="POST">
-        <input type="hidden" name="id" value="<?=$value['id']?>">
-        <input type="hidden" name="category" value="<?=$value['name']?>">
-        <input type="submit" value="삭제하기">
-    </form>
-<?php endforeach ?>
+<script>
+    $(function() {
+        $("#sortable").sortable();
+        $("#sortable").disableSelection();
+});
+</script>

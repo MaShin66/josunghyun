@@ -7,7 +7,23 @@ class ModelCategory extends CI_Model {
 
         public function getAllCategory()
         {
-                return $this->db->get('category')->result_array();
+                return $this->db->order_by('orderNumber', 'ASC')->get('category')->result_array();
+        }
+
+        public function getCategoryId($sCategory)
+        {
+                return $this->db
+                        ->where('name', $sCategory)
+                        ->get('category')
+                        ->row_array();
+        }
+
+        public function getMaxOrderNumber()
+        {
+                return $this->db
+                        ->select_max('orderNumber')
+                        ->get('category')
+                        ->row_array();
         }
 
         public function insertCategory($aCategory)
@@ -44,6 +60,19 @@ class ModelCategory extends CI_Model {
                 } else {
                         return false;
                 }
+        }
+
+        public function updateCategoryOrdering($orderNumber, $sCategoryId)
+        {
+                if ($this->db
+                ->set('orderNumber', $orderNumber)
+                ->where('id', $sCategoryId)
+                ->update('category')) {
+                        return true;
+                } else {
+                        return false;
+                }
+
         }
 
         public function deleteCategory($sId)
