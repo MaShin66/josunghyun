@@ -33,4 +33,23 @@ class ControllerLogin extends CI_Controller {
                         redirect('./login');
                 }
         }
+
+        public function passwordchange()
+        {
+                $sPassword = $_POST['password'];                
+
+                $hPassword = password_hash($sPassword, PASSWORD_BCRYPT);
+
+                $bIsSucc = $this->ModelLogin->updatePassword($hPassword);
+
+                if ($bIsSucc) {
+                        session_destroy();
+                        echo "<script>alert('비밀번호 변경에 성공했습니다');</script>";
+                        echo "<script>location.replace('../admin');</script>";
+                } else {
+                        echo "<script>alert('비밀번호 변경에 실패했습니다');</script>";
+                        echo "<script>location.replace('./');</script>";
+                }
+                
+        }
 }

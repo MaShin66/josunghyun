@@ -14,16 +14,16 @@ class ModelLogin extends CI_Model {
                 ->get()->row_array();
         }
 
-        // public function updateInstagramUrl($sEditUrl)
-        // {
-        //         if($this->db
-        //         ->set('url', $sEditUrl)
-        //         ->where('element', 'instagram')
-        //         ->update('innerText')) {
-        //                 return true;
-        //         } else {
-        //                 return false;
-        //         }
-        // }
+        public function updatePassword($hPassword)
+        {
+                if($this->db
+                ->set('password', $hPassword)
+                ->where('user_id', 'admin')
+                ->update('admin')) {
+                        return true;
+                } else {
+                        return false;
+                }
+        }
 }
 ?>
