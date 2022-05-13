@@ -72,7 +72,6 @@ class ModelCategory extends CI_Model {
                 } else {
                         return false;
                 }
-
         }
 
         public function deleteCategory($sId)

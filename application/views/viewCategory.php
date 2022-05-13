@@ -32,9 +32,10 @@
         <?php foreach ($aCategory as $value) : ?>
             <li>
                 <input type="hidden" name="categoryId[]" value="<?=$value['id']?>">
-                <input type="hidden" name="categoryOrder[]" value="<?=$value['orderNumber']?>">
-                <input type="hidden" name="categoryName[]" value="<?=$value['name']?>">
-                <div><a href="./categoryImage?name=<?=$value['name']?>"><?=$value['name']?></a></div>
+                <div>
+                    <a href="./categoryImage?name=<?=$value['name']?>"><?=$value['name']?></a>
+                    <span style="float: right;">(<?=$value['count']?>)</span>
+            </div>
             </li>
         <?php endforeach ?>
     </ol>

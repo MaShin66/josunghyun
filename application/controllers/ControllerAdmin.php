@@ -77,13 +77,16 @@ class ControllerAdmin extends CI_Controller {
                 $sOldCategory = $_GET['oldCategory'];
                 $sNewCategory = $_GET['newCategory'];
 
-                // db 값 바꾸기
-                $bisSucc = $this->ModelCategory->updateCategory($sId, $sNewCategory);
+                // category db 에서 categroy 값 바꾸기
+                $bisSucc1 = $this->ModelCategory->updateCategory($sId, $sNewCategory);
+
+                // contents db 에서 categroy 값 바꾸기
+                $bisSucc2 = $this->ModelImageContent->updateCategoryName($sOldCategory, $sNewCategory);
 
                 // file 명도 바꾸기
                 rename('./uploads/'.$sOldCategory, './uploads/'.$sNewCategory);
 
-                if($bisSucc) {
+                if($bisSucc1 && $bisSucc2) {
                         echo "<script>alert('변경에 성공했습니다');</script>";
                 } else {
                         echo "<script>alert('변경에 실패했습니다');</script>";
@@ -96,13 +99,16 @@ class ControllerAdmin extends CI_Controller {
                 $sId = $_POST['sId'];
                 $sCategory = $_POST['category'];
 
-                // db에서 지우고
-                $bisSucc = $this->ModelCategory->deleteCategory($sId);
+                // category db에서 지우고
+                $bisSucc1 = $this->ModelCategory->deleteCategory($sId);
+
+                // contents db에서 지우고
+                $bisSucc2 = $this->ModelImageContent->deleteCategory($sCategory);
 
                 // file에서도 지우기
                 rmdir('./uploads/'.$sCategory);
 
-                if($bisSucc) {
+                if($bisSucc1 && $bisSucc2) {
                         echo "<script>alert('삭제에 성공했습니다');</script>";
                 } else {
                         echo "<script>alert('삭제에 실패했습니다');</script>";
@@ -197,12 +203,17 @@ class ControllerAdmin extends CI_Controller {
                 if (! $this->upload->do_upload()) {
                         $error = array('error' => $this->upload->display_errors());
 
-                        $this->load->view('upload/viewUploadForm', $error);
+                        echo "<script>alert('이미지가 선택되지 않았거나 올바르지 않은 형식입니다.');</script>";
+                        echo "<script>location.replace('../categoryImage?name=$sCategory');</script>";
                 } else {
                         // 업로드 하고
                         $aUploadData = $this->upload->data();
 
                         $aUploadData['category'] = $sCategory;
+
+                        $aMaxOrderNumber = $this->ModelImageContent->getMaxImageOrderNumber($sCategory);
+
+                        $aUploadData['orderNumber'] = (int)$aMaxOrderNumber['orderNumber'] + 1;
 
                         // db에 해당 정보 넣고
                         $bisSucc = $this->ModelImageContent->insertUpload($aUploadData);
@@ -239,6 +250,22 @@ class ControllerAdmin extends CI_Controller {
                         echo "<script>alert('삭제에 실패했습니다');</script>";
                 }
                 echo "<script>location.replace('./categoryImage?name=$sCategory');</script>";
+        }
+
+        public function contentorder()
+        {
+                $sCategoryName = $_POST['category'];
+
+                foreach($_POST['contentId'] as $key => $contentId) {
+                        $bisSucc = $this->ModelImageContent->updateContentOrdering($key+1, $contentId);
+                }
+
+                if($bisSucc) {
+                        echo "<script>alert('순서 변경에 성공했습니다');</script>";
+                } else {
+                        echo "<script>alert('순서 변경에 실패했습니다');</script>";
+                }
+                echo "<script>location.replace('./categoryImage?name=$sCategoryName');</script>";
         }
 }
 ?>
