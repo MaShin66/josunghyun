@@ -21,7 +21,7 @@
     <input type="hidden" name="category" value="<?=$sCategory?>">
     <img style="width: 300px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
     <br>
-    <input type="file" id="input-image" name="userfile[]" size="20">
+    <input type="file" id="input-image" name="userfile" size="20">
     <br>
     <br>
     <input type="submit" value="업로드">

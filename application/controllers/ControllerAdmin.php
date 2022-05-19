@@ -154,7 +154,7 @@ class ControllerAdmin extends CI_Controller {
 
                 $ArchiveId = $this->ModelArchive->getArchiveId($sArchive);
 
-                $aArchiveImage = $this->ModelArchiveContent->getAllArchiveContent($sArchive);
+                $aArchiveImage = $this->ModelArchiveContent->getArchiveContent($sArchive);
 
                 $aAssign = array(
                         'sArchiveId' => $ArchiveId['id'],
@@ -317,10 +317,6 @@ class ControllerAdmin extends CI_Controller {
 
         public function insertImage()
         {
-                echo '<xmp>';
-                print_r('hi');
-                exit();
-
                 $sCategory = $_POST['category'];
 
                 $config['upload_path']          = './uploads/'.$sCategory;
@@ -336,7 +332,7 @@ class ControllerAdmin extends CI_Controller {
                         $error = array('error' => $this->upload->display_errors());
 
                         echo "<script>alert('이미지가 선택되지 않았거나 올바르지 않은 형식입니다.');</script>";
-                        echo "<script>location.replace('../categoryImage?name=$sCategory');</script>";
+                        // echo "<script>location.replace('../categoryImage?name=$sCategory');</script>";
                 } else {
                         // 업로드 하고
                         $aUploadData = $this->upload->data();
