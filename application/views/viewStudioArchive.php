@@ -297,13 +297,13 @@
 </head>
 <body>
     <div id="header">
-        <div class="main-link"><a href="">josunghyun</a><div class="mobile-squre"><img src="../../static/img/squre_13.svg" alt=""></div></div>
-        <div class="image-link"><a href="#" style="color:black;">image</a>
+        <div class="main-link"><a href="/">josunghyun</a><div class="mobile-squre"><img src="../../static/img/squre_13.svg" alt=""></div></div>
+        <div class="image-link"><a href="/" style="color:black;">image</a>
             <div id="image-count-div">
                 <span id="image-count"></span>
             </div>
         </div>
-        <div class="archive-link"><a href="/archive">archive</a></div>
+        <div class="archive-link"><a href="#">archive</a></div>
         <div class="email-link"><a href="">sungddol@gamil.com</a></div>
         <div class="social-link"><a href="<?=$sInstagramUrl?>" target="_blank">Instagram</a></div>
 
@@ -313,16 +313,16 @@
     </div>
     <div id="main">
         <div id="titles">
-            <?php foreach($aCategory as $value) : ?>
+            <?php foreach($aArchive as $value) : ?>
                 <div><span id="category"><?=$value['name']?></span><span class="content-count"><?=$value['count']?></span></div>
             <?php endforeach ?>
         </div>
 
-        <?php foreach ($aGroupCategoryImage as $key => $value) : ?>
-            <div class="contents <?=$key?>" data-imgcount="<?=count($aGroupCategoryImage[$key])?>">
-                <?php foreach ($aGroupCategoryImage[$key] as $key => $value) : ?>    
+        <?php foreach ($aGroupArchiveImage as $key => $value) : ?>
+            <div class="contents <?=$key?>" data-imgcount="<?=count($aGroupArchiveImage[$key])?>">
+                <?php foreach ($aGroupArchiveImage[$key] as $key => $value) : ?>    
                     <div class="content content-<?=$key+1?>" style="">
-                        <img src="../../uploads/<?=$value['category']?>/<?=$value['file_name']?>" 
+                        <img src="../../uploads/<?=$value['archive']?>/<?=$value['file_name']?>" 
                             data-width=<?=$value['image_width']?>
                             data-height=<?=$value['image_height']?>
                             alt="">
@@ -357,7 +357,7 @@
     // MOBILE
     if (isMobile()) {
         // 이미지 목록 선택했을 때
-        $('.image-link').on('click', function() {
+        $('.archive-link').on('click', function() {
             $('#main').css('display', 'block');
             $('#titles').css('display', 'block');
             $('html').css('position', 'static');

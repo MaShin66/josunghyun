@@ -34,6 +34,11 @@ class ControllerHome extends CI_Controller {
 		$this->load->view('viewStudio', $aAssign);
 	}
 
+	public function archive()
+	{
+		echo 'hi';
+	}
+
 	public function getimage()
 	{
 		$jCategory = file_get_contents("php://input");

@@ -21,31 +21,31 @@
 <br>
 <br>
 
-<form action="./categoryinsert" method="GET">
-    <input type="text" name="category" value="">
+<form action="./archiveinsert" method="GET">
+    <input type="text" name="archive" value="">
     <input type="submit" value="추가하기">
 </form>
 
-<form action="./categoryorder" method="POST">
+<form action="./archiveorder" method="POST">
     <input type="submit" value="순서바꾸기">
     <ol id="sortable">
-        <?php foreach ($aCategory as $value) : ?>
+        <?php foreach ($aArchive as $value) : ?>
             <li>
-                <input type="hidden" name="categoryId[]" value="<?=$value['id']?>">
+                <input type="hidden" name="archiveId[]" value="<?=$value['id']?>">
                 <div>
-                    <a class="category-name" href="./categoryImage?name=<?=$value['name']?>"><?=$value['name']?></a>
+                    <a class="archive-name" href="./archiveImage?name=<?=$value['name']?>"><?=$value['name']?></a>
 
                     <span style="margin-left: 2%">(<?=$value['count']?>)</span>
                     
                     
                     <input type="hidden" name="sId" value="<?=$value['id']?>">
-                    <input type="hidden" name="oldCategory" value="<?=$value['name']?>">
-                    <input type="text" name="newCategory" value="<?=$value['name']?>">
+                    <input type="hidden" name="oldarchive" value="<?=$value['name']?>">
+                    <input type="text" name="newarchive" value="<?=$value['name']?>">
                     <button type="button" class="update-button">이름 수정</button>
 
                     <button type="button" class="delete-button">
                         <input type="hidden" name="sId" value="<?=$value['id']?>">
-                        <input type="hidden" name="category" value="<?=$value['name']?>">
+                        <input type="hidden" name="archive" value="<?=$value['name']?>">
                         삭제하기
                     </button>                    
                     
@@ -66,13 +66,13 @@
             let newForm = $('<form></form>');
 	
             newForm.attr("method","post");
-            newForm.attr("action","./categoryDelete");
+            newForm.attr("action","./archiveDelete");
 
             let sId = $(this).children('input[name="sId"]').val();
-            let category = $(this).children('input[name="category"]').val();
+            let archive = $(this).children('input[name="archive"]').val();
 
             newForm.append($('<input/>', {type: 'hidden', name: 'sId', value: sId }));
-            newForm.append($('<input/>', {type: 'hidden', name: 'category', value: category }));
+            newForm.append($('<input/>', {type: 'hidden', name: 'archive', value: archive }));
         
             newForm.appendTo('body');
         
@@ -85,17 +85,17 @@
             let newForm = $('<form></form>');
 	
             newForm.attr("method", "POST");
-            newForm.attr("action", "./categoryUpdate");
+            newForm.attr("action", "./archiveUpdate");
 
             console.log(this);
 
             let sId = $(this).siblings('input[name="sId"]').val();
-            let oldCategory = $(this).siblings('input[name="oldCategory"]').val();
-            let newCategory = $(this).siblings('input[name="newCategory"]').val();
+            let oldarchive = $(this).siblings('input[name="oldarchive"]').val();
+            let newarchive = $(this).siblings('input[name="newarchive"]').val();
 
             newForm.append($('<input/>', {type: 'hidden', name: 'sId', value: sId }));
-            newForm.append($('<input/>', {type: 'hidden', name: 'oldCategory', value: oldCategory }));
-            newForm.append($('<input/>', {type: 'hidden', name: 'newCategory', value: newCategory }));
+            newForm.append($('<input/>', {type: 'hidden', name: 'oldArchive', value: oldarchive }));
+            newForm.append($('<input/>', {type: 'hidden', name: 'newArchive', value: newarchive }));
         
             newForm.appendTo('body');
         

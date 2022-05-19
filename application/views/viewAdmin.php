@@ -9,8 +9,9 @@
 <body>
     <ul>
         <!-- 실서버는 아직 index.php 안지워서 . 로 하고 로컬은 .. -->
-        <li><a href="../admin/category">카테고리</a></li>
-        <li><a href="../admin/instagram">인스타그램 주소 설정</a></li>
+        <li><a href="../admin/category">Category</a></li>
+        <li><a href="../admin/archive">Archive</a></li>
+        <li><a href="../admin/instagram">Instgram 주소 설정</a></li>
         <li><a href="../admin/textEdit">모바일 소개 문구 수정</a></li>
         <li><a href="../admin/adminId">어드민 계정 설정</a></li>
     </ul>

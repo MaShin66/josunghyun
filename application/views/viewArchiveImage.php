@@ -15,13 +15,13 @@
 <br>
 <br>
 
-<h1><?=$sCategory?></h1>
+<h1><?=$sArchive?></h1>
 
-<?=form_open_multipart('admin/insertImage/');?>
-    <input type="hidden" name="category" value="<?=$sCategory?>">
+<?=form_open_multipart('admin/insertArchive/');?>
+    <input type="hidden" name="archive" value="<?=$sArchive?>">
     <img style="width: 300px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
     <br>
-    <input type="file" id="input-image" name="userfile[]" size="20">
+    <input type="file" id="input-image" name="userfile" size="20">
     <br>
     <br>
     <input type="submit" value="업로드">
@@ -30,19 +30,19 @@
 <br>
 <br>
 
-<form action="./contentorder" method="POST">
+<form action="./archiveorder" method="POST">
 <input type="submit" value="순서바꾸기">
     <ol id="sortable">
-        <?php foreach ($aCategoryImage as $value) : ?>
+        <?php foreach ($aArchiveImage as $value) : ?>
             <li>
                 <div>
                     <input type="hidden" name="contentId[]" value="<?=$value['content_idx']?>">
-                    <img src="../../uploads/<?=$value['category']?>/<?=$value['file_name']?>" alt="" style="width: 50%;">
+                    <img src="../../uploads/<?=$value['archive']?>/<?=$value['file_name']?>" alt="" style="width: 50%;">
                     <div><?=$value['file_name']?></div>
 
                         <button type="button" class="delete-button">
                             <input type="hidden" name="contentIdx" value="<?=$value['content_idx']?>">
-                            <input type="hidden" name="category" value="<?=$value['category']?>">
+                            <input type="hidden" name="archive" value="<?=$value['archive']?>">
                             <input type="hidden" name="fileName" value="<?=$value['file_name']?>">
                             삭제하기
                         </button>
@@ -64,14 +64,14 @@
             let newForm = $('<form></form>');
 	
             newForm.attr("method","post");
-            newForm.attr("action","./deleteImage");
+            newForm.attr("action","./deleteArchiveImage");
 
             let contentIdx = $(this).children('input[name="contentIdx"]').val();
-            let category = $(this).children('input[name="category"]').val();
+            let archive = $(this).children('input[name="archive"]').val();
             let fileName = $(this).children('input[name="fileName"]').val();
 
             newForm.append($('<input/>', {type: 'hidden', name: 'contentIdx', value: contentIdx }));
-            newForm.append($('<input/>', {type: 'hidden', name: 'category', value: category }));
+            newForm.append($('<input/>', {type: 'hidden', name: 'archive', value: archive }));
             newForm.append($('<input/>', {type: 'hidden', name: 'fileName', value: fileName }));
         
             newForm.appendTo('body');

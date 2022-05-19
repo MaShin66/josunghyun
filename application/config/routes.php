@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 //$route['(:any)'] = 'Controller$1';
 //$route['(:any)/(:any)'] = 'Controller$1/$2';
 
+$route['archive'] = 'ControllerArchive';
 $route['admin'] = 'ControllerAdmin';
 $route['login'] = 'ControllerLogin';
 
