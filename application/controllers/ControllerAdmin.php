@@ -328,36 +328,48 @@ class ControllerAdmin extends CI_Controller {
 
                 $this->load->library('upload', $config);
 
-                if (! $this->upload->do_upload()) {
-                        $error = array('error' => $this->upload->display_errors());
+                $files = $_FILES;
+                $iImageCount = count($_FILES['userfile']['name']);
 
-                        echo "<script>alert('이미지가 선택되지 않았거나 올바르지 않은 형식입니다.');</script>";
-                        // echo "<script>location.replace('../categoryImage?name=$sCategory');</script>";
-                } else {
-                        // 업로드 하고
-                        $aUploadData = $this->upload->data();
+                for ($i=0; $i < $iImageCount; $i++) {
+                        $_FILES['userfile']['name'] = $files['userfile']['name'][$i];
+                        $_FILES['userfile']['type'] = $files['userfile']['type'][$i];
+                        $_FILES['userfile']['tmp_name'] = $files['userfile']['tmp_name'][$i];
+                        $_FILES['userfile']['error'] = $files['userfile']['error'][$i];
+                        $_FILES['userfile']['size'] = $files['userfile']['size'][$i];
 
-                        $aUploadData['category'] = $sCategory;
-
-                        $aMaxOrderNumber = $this->ModelImageContent->getMaxImageOrderNumber($sCategory);
-
-                        $aUploadData['orderNumber'] = (int)$aMaxOrderNumber['orderNumber'] + 1;
-
-                        // db에 해당 정보 넣고
-                        $bisSucc = $this->ModelImageContent->insertUpload($aUploadData);
-
-                        if ($bisSucc > 0) {
-                                // category 에 count 숫자 올리기
-                                $bisSucc = $this->ModelCategory->updateCategoryCount($sCategory);
-                        }
-
-                        if($bisSucc > 0) {
-                                echo "<script>alert('업로드 성공했습니다');</script>";
+                        if (! $this->upload->do_upload()) {
+                                $error = array('error' => $this->upload->display_errors());
+        
+                                echo "<script>alert('이미지가 선택되지 않았거나 올바르지 않은 형식입니다.');</>";
+                                echo "<script>location.replace('../categoryImage?name=$sCategory');</script>";
                         } else {
-                                echo "<script>alert('변경에 실패했습니다');</script>";
+                                // 업로드 하고
+                                $aUploadData = $this->upload->data();
+        
+                                $aUploadData['category'] = $sCategory;
+        
+                                $aMaxOrderNumber = $this->ModelImageContent->getMaxImageOrderNumber($sCategory);
+        
+                                $aUploadData['orderNumber'] = (int)$aMaxOrderNumber['orderNumber'] + 1;
+        
+                                // db에 해당 정보 넣고
+                                $bisSucc = $this->ModelImageContent->insertUpload($aUploadData);
+        
+                                if ($bisSucc > 0) {
+                                        // category 에 count 숫자 올리기
+                                        $bisSucc = $this->ModelCategory->updateCategoryCount($sCategory);
+                                }
                         }
-                        echo "<script>location.replace('../categoryImage?name=$sCategory');</script>";
                 }
+
+                if($bisSucc > 0) {
+                        echo "<script>alert('업로드 성공했습니다');</script>";
+                } else {
+                        echo "<script>alert('변경에 실패했습니다');</script>";
+                }
+                echo "<script>location.replace('../categoryImage?name=$sCategory');</script>";
+
         }
 
         public function deleteImage()

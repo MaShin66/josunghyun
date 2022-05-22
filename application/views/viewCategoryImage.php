@@ -19,13 +19,17 @@
 
 <?=form_open_multipart('admin/insertImage/');?>
     <input type="hidden" name="category" value="<?=$sCategory?>">
-    <img style="width: 300px;" id="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image">
-    <br>
-    <input type="file" id="input-image" name="userfile" size="20">
-    <br>
-    <br>
+    
+    <!-- <img style="width: 300px;" class="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image"> -->
+    <!-- <input type="file" class="input-image" name="userfile[]" size="20" multiple> -->
+
+    <input type="file" id="input_imgs" name="userfile[]" size="20" multiple>
     <input type="submit" value="업로드">
+    <div class="imgs_wrap" style="width: 300px; display: flex; align-items: center;"></div>    
 </form>
+
+<!-- <input type="file" id="input_imgs" multiple>
+<div class="imgs_wrap"></div> -->
 
 <br>
 <br>
@@ -54,6 +58,35 @@
 </form>
 
 <script>
+
+let sel_files = [];
+
+$(document).ready(function() {
+    $("#input_imgs").on("change", handleImgsFilesSelect);
+});
+
+function handleImgsFilesSelect(e) {
+    // 한 번에 하나씩 선택하면 그것만 업로드 되도록 이전 미리보기 삭제
+    $(".imgs_wrap").children().remove();
+
+    let files = e.target.files;
+
+    let filesArr = Array.prototype.slice.call(files);
+
+    filesArr.forEach(function(f) {
+        sel_files.push(f);
+
+        let reader = new FileReader();
+
+        reader.onload = function(e) {
+            let img_html = "<img style='width: 100%' src=\"" + e.target.result + "\" />";
+            $(".imgs_wrap").append(img_html);
+        }
+        reader.readAsDataURL(f);
+    })
+}
+
+
     $(function() {
         $("#sortable").sortable();
         $("#sortable").disableSelection();
@@ -80,25 +113,26 @@
         })
     })
 
-    // 파일 미리보기
-    function readImage(input) {
-        // 인풋 태그에 파일이 있는 경우
-        if(input.files && input.files[0]) {
-            // 이미지 파일인지 검사 (생략)
-            // FileReader 인스턴스 생성
-            const reader = new FileReader()
-            // 이미지가 로드가 된 경우
-            reader.onload = e => {
-                const previewImage = document.getElementById("preview-image")
-                previewImage.src = e.target.result
-            }
-            // reader가 이미지 읽도록 하기
-            reader.readAsDataURL(input.files[0])
-        }
-    }
-    // input file에 change 이벤트 부여
-    const inputImage = document.getElementById("input-image")
-    inputImage.addEventListener("change", e => {
-        readImage(e.target)
-    })
+    // // 파일 미리보기
+    // function readImage(input) {
+    //     // 인풋 태그에 파일이 있는 경우
+    //     if(input.files && input.files[0]) {
+    //         // 이미지 파일인지 검사 (생략)
+    //         // FileReader 인스턴스 생성
+    //         let reader = new FileReader()
+    //         // 이미지가 로드가 된 경우
+    //         reader.onload = e => {
+    //             let previewImage = document.querySelector('.preview-image');
+    //             previewImage.src = e.target.result
+    //         }
+    //         // reader가 이미지 읽도록 하기
+    //         reader.readAsDataURL(input.files[0])
+    //     }
+    // }
+    // // input file에 change 이벤트 부여
+    // let inputImage = document.querySelector('.input-image');
+
+    // inputImage.addEventListener("change", e => {
+    //     readImage(e.target)
+    // })
 </script>

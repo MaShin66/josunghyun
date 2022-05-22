@@ -432,8 +432,6 @@
     // 이미지 클릭했을 때
     $('#titles > div').each(function() {
         this.addEventListener('click', function() {
-            $('.archive-link').hide();
-
             // 클릭 안된 것들 다시 본래색으로
             $('#titles > div').each(function() {
                 $(this).css('color', '#808080');
@@ -479,6 +477,7 @@
                     }
                 });
             } else { // MOBILE
+                $('.archive-link').hide();
                 // image count 에 숫자 넣기
                 let imageCount = $(this).find('.content-count').text();
 
@@ -564,8 +563,6 @@
     // 아카이브 이미지 클릭
     $('#archive-titles > div').each(function() { 
         this.addEventListener('click', function() {
-            $('.image-link').hide();
-
             // 클릭 안된 것들 다시 본래색으로
             $('#archive-titles > div').each(function() {
                 $(this).css('color', '#808080');
@@ -610,6 +607,8 @@
                     }
                 });
             } else { // MOBILE
+                $('.image-link').hide();
+                
                 // image count 에 숫자 넣기
                 let archiveCount = $(this).find('.archive-content-count').text();
 
