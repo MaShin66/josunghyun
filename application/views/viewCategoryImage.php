@@ -9,6 +9,15 @@
         border: 1px solid black;
         padding: 1%;
     }
+
+    #sortable {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    ul {
+        list-style-type: none;
+    }
 </style>
 
 <a href=".">목록으로</a>
@@ -17,31 +26,24 @@
 
 <h1><?=$sCategory?></h1>
 
-<?=form_open_multipart('admin/insertImage/');?>
+<?=form_open_multipart('admin/../../static/pluginsImage/');?>
     <input type="hidden" name="category" value="<?=$sCategory?>">
-    
-    <!-- <img style="width: 300px;" class="preview-image" src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image"> -->
-    <!-- <input type="file" class="input-image" name="userfile[]" size="20" multiple> -->
-
     <input type="file" id="input_imgs" name="userfile[]" size="20" multiple>
     <input type="submit" value="업로드">
     <div class="imgs_wrap" style="width: 300px; display: flex; align-items: center;"></div>    
 </form>
-
-<!-- <input type="file" id="input_imgs" multiple>
-<div class="imgs_wrap"></div> -->
 
 <br>
 <br>
 
 <form action="./contentorder" method="POST">
 <input type="submit" value="순서바꾸기">
-    <ol id="sortable">
+    <ul id="sortable">
         <?php foreach ($aCategoryImage as $value) : ?>
             <li>
                 <div>
                     <input type="hidden" name="contentId[]" value="<?=$value['content_idx']?>">
-                    <img src="../../uploads/<?=$value['category']?>/<?=$value['file_name']?>" alt="" style="width: 50%;">
+                    <img src="../../uploads/<?=$value['category']?>/<?=$value['file_name']?>" alt="" style="width: 75%;">
                     <div><?=$value['file_name']?></div>
 
                         <button type="button" class="delete-button">
@@ -54,7 +56,7 @@
                 </div>
             </li>
         <?php endforeach ?>
-    </ol?>
+    </ul>
 </form>
 
 <script>

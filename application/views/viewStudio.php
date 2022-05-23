@@ -67,7 +67,7 @@
     }
 
     #titles > div,
-    #archive > div {
+    #archive-titles > div {
         cursor: pointer;
     }
 
