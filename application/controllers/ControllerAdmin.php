@@ -15,25 +15,42 @@ class ControllerAdmin extends CI_Controller {
                         $this->load->view('viewLogin');
                         redirect('/login');
                 }
+
+                // $this->load->view('viewHeader');
+                // $this->load->view('viewSideHeader');
+                // $this->load->view('viewSideFooter');
+                // $this->load->view('viewFooter');
         }
 
         public function index()
         {
+                $this->load->view('viewHeader');
+                $this->load->view('viewSideHeader');
                 $this->load->view('viewAdmin');
+                $this->load->view('viewSideFooter');
+                $this->load->view('viewFooter');
         }
 
         public function category()
         {
                 $aCategory = $this->ModelCategory->getAllCategory();
 
+                $this->load->view('viewHeader');
+                $this->load->view('viewSideHeader');
                 $this->load->view('viewCategory', array('aCategory' => $aCategory));
+                $this->load->view('viewSideFooter');
+                $this->load->view('viewFooter');
         }
 
         public function archive()
         {
                 $aArchive = $this->ModelArchive->getAllArchive();
 
+                $this->load->view('viewHeader');
+                $this->load->view('viewSideHeader');
                 $this->load->view('viewArchive', array('aArchive' => $aArchive));
+                $this->load->view('viewSideFooter');
+                $this->load->view('viewFooter');
         }
 
         // 카테고리 눌렀을 때 이미지 보여주기
@@ -51,7 +68,11 @@ class ControllerAdmin extends CI_Controller {
                         'aCategoryImage' => $aCategoryImage
                 );
 
+                $this->load->view('viewHeader');
+                $this->load->view('viewSideHeader');
                 $this->load->view('viewCategoryImage', $aAssign);
+                $this->load->view('viewSideFooter');
+                $this->load->view('viewFooter');
         }
 
         public function categoryinsert()
@@ -162,7 +183,11 @@ class ControllerAdmin extends CI_Controller {
                         'aArchiveImage' => $aArchiveImage
                 );
 
+                $this->load->view('viewHeader');
+                $this->load->view('viewSideHeader');
                 $this->load->view('viewArchiveImage', $aAssign);
+                $this->load->view('viewSideFooter');
+                $this->load->view('viewFooter');
         }
 
         public function archiveinsert()
@@ -268,7 +293,11 @@ class ControllerAdmin extends CI_Controller {
 			'aInstagramUrl' => $aInstagramUrl['url']
 		);
 
+                $this->load->view('viewHeader');
+                $this->load->view('viewSideHeader');
                 $this->load->view('viewInstagram', $aAssign);
+                $this->load->view('viewSideFooter');
+                $this->load->view('viewFooter');
         }
 
         public function instagramExec()
@@ -294,7 +323,11 @@ class ControllerAdmin extends CI_Controller {
 			'sMobileSecondText' => $aMobileText[1]['url']
 		);
 
+                $this->load->view('viewHeader');
+                $this->load->view('viewSideHeader');
                 $this->load->view('viewTextEdit', $aAssign);
+                $this->load->view('viewSideFooter');
+                $this->load->view('viewFooter');
         }
 
         public function textExec()
@@ -314,7 +347,11 @@ class ControllerAdmin extends CI_Controller {
 
         public function adminId()
         {
+                $this->load->view('viewHeader');
+                $this->load->view('viewSideHeader');
                 $this->load->view('viewAdminId');
+                $this->load->view('viewSideFooter');
+                $this->load->view('viewFooter');
         }
 
         public function insertImage()
