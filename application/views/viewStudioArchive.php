@@ -66,13 +66,13 @@
         background-color: white;
     }
 
-    #titles > div {
+    #image-titles > div {
         cursor: pointer;
     }
 
-    #image-count-div {
+    /* #image-count-div {
         display: none;
-    }
+    } */
 
     /* PC */
     @media screen and (min-width: 768px) {
@@ -102,7 +102,7 @@
             z-index: 1;
         }
 
-        #titles {
+        #image-titles {
             width: 20%;
             margin: 12px;
             line-height: 1.5rem;
@@ -210,7 +210,7 @@
             color: #000000;
         }
 
-        #titles {
+        #image-titles {
             font-family: 'regular';
             width: 110%;
             margin-left: 7%;
@@ -229,10 +229,10 @@
         }
         
 
-        #image-count-div {
+        /* #image-count-div {
             float: right;
             font-size: 0.8rem;
-        }
+        } */
 
         #image-count {
             font-family: 'medium';
@@ -299,9 +299,9 @@
     <div id="header">
         <div class="main-link"><a href="/">josunghyun</a><div class="mobile-squre"><img src="../../static/img/squre_13.svg" alt=""></div></div>
         <div class="image-link"><a href="/" style="color:black;">image</a>
-            <div id="image-count-div">
+            <!-- <div id="image-count-div">
                 <span id="image-count"></span>
-            </div>
+            </div> -->
         </div>
         <div class="archive-link"><a href="#">archive</a></div>
         <div class="email-link"><a href="">sungddol@gamil.com</a></div>
@@ -363,7 +363,7 @@
             $('html').css('position', 'static');
             $('body').css('overflow-x', 'hidden');
             $('html').css('overflow-y', 'auto');
-            $('#image-count-div').css('display', 'none');
+            // $('#image-count-div').css('display', 'none');
             
             $('.archive-link, .email-link, .social-link, .mobile-text, .mobile-text2').css('display', 'none');
 
@@ -458,7 +458,7 @@
 
                 $('#titles').css('display', 'none');
                 $('html').css('overflow', 'hidden');
-                $('#image-count-div').css('display', 'block');
+                // $('#image-count-div').css('display', 'block');
 
                 // 오른쪽 위 검은색 네모 회전
                 $('.mobile-squre img').css('transform', 'rotate(45deg)');
@@ -471,7 +471,7 @@
                     $('html').css('position', 'static');
                     $('body').css('overflow-x', 'hidden');
                     $('html').css('overflow-y', 'auto');
-                    $('#image-count-div').css('display', 'none');
+                    // $('#image-count-div').css('display', 'none');
                     
                     $('.archive-link, .email-link, .social-link, .mobile-text, .mobile-text2').css('display', 'none');
 

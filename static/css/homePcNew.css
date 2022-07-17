@@ -1,0 +1,83 @@
+
+@media screen and (min-width: 768px) {
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+    
+    /* PC 에서 안보이게 할 것들 */
+    .category, 
+    .archive,
+    .mobile-squre {
+        display: none;
+        padding-right: 3%;
+    }
+
+    body {
+        display: flex;
+    }
+
+    #header {
+        /* display: flex;
+        flex-direction: column;
+        justify-content: space-between; */
+        /* margin: 2% 0 -2% 2%; */
+        padding: 2%;
+        position: fixed;
+        background-color: white;
+        height: 100%;
+        padding-right: 2%;
+        width: 300px;
+    }
+    
+
+    #main {
+        margin-left: 30%;
+    }
+
+    .category, 
+    .archive {
+        width: 37%;
+    }
+
+    .category > img,
+    .archive > img {
+        width: 100%;
+    }
+
+    .title-flex-class-pc {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        flex-wrap: wrap;
+        align-content: stretch;
+        justify-content: space-evenly;
+    }
+
+    .image-link {
+        margin: 14% 0 5% 0;
+    }
+
+    .mobile-text,
+    .mobile-text2,
+    .email-link,
+    .social-link {
+        position: absolute;
+    }
+
+    .mobile-text {
+        bottom: 18%;
+    }
+
+    .mobile-text2 {
+        bottom: 16%;
+    }
+
+    .email-link {
+        bottom: 11%;
+    }
+
+    .social-link {
+        bottom: 9%;
+    }
+}
