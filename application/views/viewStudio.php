@@ -10,16 +10,14 @@
 	<title>Studio</title>
 
 	<link rel="stylesheet" href="../../static/css/default.css">
-    <!-- <link rel="stylesheet" href="../../static/css/homePc.css"> -->
     <link rel="stylesheet" href="../../static/css/homePcNew.css">
-    <!-- <link rel="stylesheet" href="../../static/css/homeMobile.css"> -->
     <link rel="stylesheet" href="../../static/css/homeMobileNew.css">
 
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 </head>
 <body>
     <div id="header">
-        <div class="main-link"><a href="">josunghyun</a>
+        <div class="main-link "><a href="">josunghyun</a>
             <div class="mobile-squre"><img src="../../static/img/squre_13.svg" alt=""></div>
         </div>
         <div class="image-link"><a href="#">Image</a></div>
@@ -32,9 +30,13 @@
     </div>
     <div id="main">
         <div id="image-titles">
-        <?php foreach($aCategory as $value) : ?>
             <div class="category"><img src="../../uploads/loah/City-breeze-City-21-summer-17.jpg" alt=""></div>
-        <?php endforeach ?>
+            <div class="contents">
+                <div><img src="../../uploads/loah/City-breeze-City-21-summer-1.jpg" alt=""></div>
+                <div><img src="../../uploads/loah/City-breeze-City-21-summer-2.jpg" alt=""></div>
+                <div><img src="../../uploads/loah/City-breeze-City-21-summer-3.jpg" alt=""></div>
+            </div>
+        
         </div>
         <!-- <?php foreach ($aGroupCategoryImage as $key => $value) : ?>
             <div class="contents <?=$key?>" data-imgcount="<?=count($aGroupCategoryImage[$key])?>">

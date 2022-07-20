@@ -1,22 +1,74 @@
-@media screen and (max-width: 768px) {
-    html, body {
+@media screen and (max-width: 767px) {
+    html {
         width: 100%;
         height: 100%;
-        /* 나중에 이미지 클릭하면 풀어야해서 일단 미리 풀어놓음 */
-        /* overflow: hidden; */
+        overflow: hidden;
+        position: fixed;
     }
 
-    #image-titles, #archive-titles {
+    body {
+        font-family: HelveticaNeue-Medium;
+    }
+    
+    #main {
+        display: none;
+    }
+
+    #header {
+        display: flex;
+        padding: 0% 7% 2% 7%;
+        flex-direction: column;
+        line-height: 2rem;
+    }
+
+    #header > div {
+        width: 100%;
+        text-align: left;
+    }
+
+    .main-link {
+        position: fixed;
+        background-color: white;
+        width: 86% !important;
+        left: 50%;
+        transform: translateX( -50% );
+        padding: 4% 0;
+        margin-bottom: 4%;
+    }
+
+    .contact-link, .close-link {
+        float: right;
+        display: none;
+    }
+
+    .close-link {
+        margin-left: 4%;
+    }
+
+    .main-link a {
+        color: #000000;
+    }
+
+    .image-link {
+        margin-top: 20%;
+    }
+
+    #main {
+        margin-top: 14%;
+    }
+
+    #titles,
+    #archive-titles {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-evenly;
+        line-height: 5rem;
+        margin: 10px;
     }
 
-    .category, 
-    .archive {
-        display: none;
-        width: 26%;
-        margin: 3%;
+    #titles > div,
+    #archive-titles > div {
+        width: 27%;
     }
 
     .category > img,
@@ -24,74 +76,91 @@
         width: 100%;
     }
 
+    .categoryArchiveName {
+        display: none;
+    }
+
+    .contents,
+    .archive-contents {
+        display: none;
+        /* flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow-x: scroll;
+        overflow-y: hidden; */
+    }
+
+    .content-slide {
+        position: relative !important;
+    }
+    
+
+    #image-count-div,
+    #archive-count-div {
+        float: right;
+        font-size: 0.8rem;
+    }
+
+    #image-count,
+    #archive-count {
+        font-family: 'medium';
+    }
+    
+    .content {
+        height: 450px !important;
+    }
+
+    .content > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     .mobile-squre {
+        display: block;
         float: right;
     }
 
-    #header {
-        height: 100%;
-        /* margin: 3%; */
-    }
-
-    .header-click-class-m {
-        position: fixed;
-        z-index: 1;
-        background-color: white;
-        width: 94%;
-    }
-
-    #main {
-        position: absolute;
-        top: 8%;
-    }
-
-    .mobile-squre > img {
-        width: 14px;
+    .mobile-squre img {
+        width: 12px;
     }
 
     .image-link {
-        /* margin-top: 10%; */
-        margin: 10% 3% 0% 3%;
+        /* display: flex;
+        justify-content: space-between;
+        align-items: center; */
     }
 
-    .archive-link {
-        margin-top: 4%;
-        margin: 4% 3% 0% 3%;
-    }
-
-    .main-link {
-        padding: 4% 3%;
-    }
-
-    .mobile-text,
-    .mobile-text2,
-    .email-link,
-    .social-link {
-        margin: 0% 3%;
-    }
-
-    .mobile-text,
-    .mobile-text2,
-    .email-link,
-    .social-link {
+    .email-link, .social-link, .mobile-text, .mobile-text2 {
         position: absolute;
     }
 
-    .mobile-text {
-        bottom: 21%;
-    }
-
-    .mobile-text2 {
-        bottom: 17%;
-    }
-
     .email-link {
-        bottom: 9%;
+        bottom: 0.5rem;
     }
 
     .social-link {
-        bottom: 5%;
+        bottom: 2rem;
     }
 
+    .mobile-text {
+        bottom: 6.5rem;
+    }
 
+    .mobile-text2 {
+        bottom: 5rem;
+    }
+
+    .slick-slide {
+        margin: 46px 24px 3%;
+    }
+
+    .content-count, .archive-content-count {
+        display: none;
+    }
+
+    .image-text {
+        text-align: center;
+        margin-top: 17%;
+    }
 }

@@ -5,8 +5,10 @@ class ControllerArchive extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-
+		
 		$this->load->model('ModelText');
+		$this->load->model('ModelCategory');
+		$this->load->model('ModelImageContent');
 		$this->load->model('ModelArchive');
 		$this->load->model('ModelArchiveContent');
 	}
@@ -17,37 +19,45 @@ class ControllerArchive extends CI_Controller {
 
 		$aMobileText = $this->ModelText->getMobileText();
 		
+		$aCategory = $this->ModelCategory->getAllCategory();
+		$aImageList = $this->ModelImageContent->getAllImageContents();
+		$aGroupCategoryImage = $this->GroupCategoryImage2($aImageList);
+
 		$aArchive = $this->ModelArchive->getAllArchive();
-
-		$aImageList = $this->ModelArchiveContent->getAllArchiveContent();
-
-		$aGroupArchiveImage = $this->GroupArchiveImage($aImageList);
+		$aArchiveList = $this->ModelArchiveContent->getAllArchiveContent();
+		$aGroupArchiveImage = $this->GroupArchiveImage2($aArchiveList);
 		
 		$aAssign = array(
 			'sInstagramUrl' => $aInstagramUrl['url'],
-			'aArchive' => $aArchive,
 			'sMobileFristText' => $aMobileText[0]['url'],
 			'sMobileSecondText' => $aMobileText[1]['url'],
+			'aCategory' => $aCategory,
+			'aGroupCategoryImage' => $aGroupCategoryImage,
+			'aArchive' => $aArchive,
 			'aGroupArchiveImage' => $aGroupArchiveImage
 		);
 
-		$this->load->view('viewStudioArchive', $aAssign);
+		$this->load->view('viewTest', $aAssign);
 	}
 
-	public function getimage()
+	private function GroupCategoryImage2($aImageList)
 	{
-		$jArchive = file_get_contents("php://input");
+		$aGroupCategoryImage = array();	
 
-		$aArchive = json_decode($jArchive, true);
+		foreach ($aImageList as $value) {
+			// 카테고리가 이미 있다면 이미지만
+			if (array_key_exists($value['category'], $aGroupCategoryImage)) {
+				array_push($aGroupCategoryImage[$value['category']], $value);
+			} else { // 없다면 카테고리 + 이미지 추가
+				$aGroupCategoryImage[$value['category']] = array();
+				array_push($aGroupCategoryImage[$value['category']], $value);
+			}
+		}
 
-		$sArchive = $aArchive['archive'];
-		
-		$aImageContent = $this->ModelArchiveContent->getArchiveContents($aArchive);
-
-		echo json_encode($aImageContent);
+		return $aGroupCategoryImage;
 	}
 
-	private function GroupArchiveImage($aImageList)
+	private function GroupArchiveImage2($aImageList)
 	{
 		$aGroupArchiveImage = array();	
 
@@ -62,5 +72,18 @@ class ControllerArchive extends CI_Controller {
 		}
 
 		return $aGroupArchiveImage;
+	}
+
+	public function getimage()
+	{
+		$jArchive = file_get_contents("php://input");
+
+		$aArchive = json_decode($jArchive, true);
+
+		$sArchive = $aArchive['archive'];
+		
+		$aImageContent = $this->ModelArchiveContent->getArchiveContents($aArchive);
+
+		echo json_encode($aImageContent);
 	}
 }

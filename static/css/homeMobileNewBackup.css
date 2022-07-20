@@ -1,0 +1,98 @@
+@media screen and (max-width: 768px) {
+    html, body {
+        width: 100%;
+        height: 100%;
+        /* 나중에 이미지 클릭하면 풀어야해서 일단 미리 풀어놓음 */
+        /* overflow: hidden; */
+    }
+
+    #image-titles, #archive-titles {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .category, 
+    .archive {
+        display: none;
+        width: 26%;
+        margin: 3%;
+    }
+
+    .category > img,
+    .archive > img {
+        width: 100%;
+    }
+
+
+    .mobile-squre {
+        float: right;
+    }
+
+    #header {
+        height: 100%;
+        /* margin: 3%; */
+    }
+
+    .header-click-class-m {
+        position: fixed;
+        z-index: 1;
+        background-color: white;
+        width: 94%;
+    }
+
+    #main {
+        position: absolute;
+        top: 8%;
+    }
+
+    .mobile-squre > img {
+        width: 14px;
+    }
+
+    .image-link {
+        /* margin-top: 10%; */
+        margin: 10% 3% 0% 3%;
+    }
+
+    .archive-link {
+        margin-top: 4%;
+        margin: 4% 3% 0% 3%;
+    }
+
+    .main-link {
+        padding: 4% 3%;
+    }
+
+    .mobile-text,
+    .mobile-text2,
+    .email-link,
+    .social-link {
+        margin: 0% 3%;
+    }
+
+    .mobile-text,
+    .mobile-text2,
+    .email-link,
+    .social-link {
+        position: absolute;
+    }
+
+    .mobile-text {
+        bottom: 21%;
+    }
+
+    .mobile-text2 {
+        bottom: 17%;
+    }
+
+    .email-link {
+        bottom: 9%;
+    }
+
+    .social-link {
+        bottom: 5%;
+    }
+
+
+}

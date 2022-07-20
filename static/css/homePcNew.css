@@ -45,6 +45,14 @@
         width: 100%;
     }
 
+    .contents {
+        display: none;
+    }
+
+    .contents > div > img {
+        width: 100%;
+    }
+
     .title-flex-class-pc {
         display: flex;
         flex-direction: column;

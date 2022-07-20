@@ -37,7 +37,7 @@ class ControllerHome extends CI_Controller {
 			'aGroupArchiveImage' => $aGroupArchiveImage
 		);
 
-		$this->load->view('viewStudio', $aAssign);
+		$this->load->view('viewStudio2', $aAssign);
 	}
 
 	public function archive()
